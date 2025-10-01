@@ -13,10 +13,10 @@
 }
 
 /* Logo */
-.logo {
-  font-weight: bold;
-  font-size: 18px;
-  text-transform: uppercase;
+.logo img {
+  max-height: 50px;   
+  width: auto;        
+  display: block;
 }
 
 /* Linki w linii */
@@ -28,8 +28,9 @@
   margin-left: 1rem;
   font-size: 12px;
   text-decoration: none;
-  color: #333;
+  color: #ae5224;
   text-transform: uppercase; /* zamienia wszystkie litery na duże */
+  font-weight: bold;
 }
 
 /* Hamburger — domyślnie ukryty */

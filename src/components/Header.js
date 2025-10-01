@@ -7,7 +7,9 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-container">
-        <h1 className="logo">🐾 Adoptuj Przyjaciela</h1>
+        <a href="/" className="logo">
+      <img src="/img/logo.png" alt="Adoptuj Przyjaciela" />
+    </a>
 
         {/* Hamburger tylko dla mobilnych */}
         <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>

@@ -1,22 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeroSection from "../components/HeroSection";
 import AnimalCard from "../components/AnimalCard";
 import "./Home.css";
 
 const Home = () => {
   const [selectedSpecies, setSelectedSpecies] = useState("Pies");
+  const [visibleAnimals, setVisibleAnimals] = useState([]);
 
   const animals = [
     { name: "Junior", gender: "On", age: "Młody", size: "Średni", img: "/img/junior.jpg" },
     { name: "Tosia", gender: "Ona", age: "Senior", size: "Duża", img: "/img/tosia.jpg" },
     { name: "Heniek", gender: "On", age: "Dorosły", size: "Średni", img: "/img/heniek.jpg" },
-    { name: "Bunia", gender: "Ona", age: "Młoda", size: "Mała", img: "/img/bunia.jpg" },
+    { name: "Maja i Kaja", gender: "One", age: "Młode", size: "Małe", img: "/img/majaikaja.jpg" },
+    { name: "Klemens", gender: "On", age: "Senior", size: "-", img: "/img/klemens.jpg" },
+    { name: "Pantera", gender: "Ona", age: "Młoda", size: "-", img: "/img/pantera.jpg" },
+    { name: "Jamal", gender: "On", age: "Dorosły", size: "-", img: "/img/jamal.jpg" },
+    { name: "Bunia", gender: "Ona", age: "Junior", size: "-", img: "/img/bunia.jpg" },
   ];
 
-  // JSX filtrów przekazywany do HeroSection
+  // Ustawienie widocznych kart w zależności od szerokości ekranu
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 570) {
+        setVisibleAnimals(animals.slice(0, 4)); // tylko 4 karty
+      } else {
+        setVisibleAnimals(animals); // wszystkie karty
+      }
+    };
+
+    handleResize(); // ustawienie przy pierwszym renderze
+    window.addEventListener("resize", handleResize); // aktualizacja przy zmianie rozmiaru
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [animals]);
+
+  // JSX filtrów przekazywany do HeroSection (nie zmieniany)
   const filtersJSX = (
     <div className="filters">
-      {/* Rząd Pies/Kot */}
       <div className="filters-row">
         <button
           type="button"
@@ -34,7 +54,6 @@ const Home = () => {
         </button>
       </div>
 
-      {/* Rząd selectów */}
       <div className="filters-row">
         <select disabled={selectedSpecies === "Kot"}>
           <option value="">Wielkość</option>
@@ -57,7 +76,6 @@ const Home = () => {
         </select>
       </div>
 
-      {/* Rząd przycisku Szukaj */}
       <div className="filters-row">
         <button type="submit" className="search-button">Szukaj</button>
       </div>
@@ -90,7 +108,7 @@ const Home = () => {
       <section className="adoption-section">
         <h3>Pupile do adopcji</h3>
         <div className="animal-list">
-          {animals.map((a, i) => (
+          {visibleAnimals.map((a, i) => (
             <AnimalCard
               key={i}
               name={a.name}
@@ -108,6 +126,7 @@ const Home = () => {
 };
 
 export default Home;
+
 
 
 

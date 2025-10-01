@@ -7,7 +7,7 @@
 
 /*sekcja o nas na stronie głównej*/
 .about-section {
-  background-color: #fdf6f0;
+  background-color: #fce6d6;
   padding: 50px 20px;
 }
 
@@ -37,9 +37,10 @@
 
 
 .adoption-section {
-  background-color: #fff5ed;
+  font-size: 22px;
+  color: #a0522d;
+  margin-bottom: 15px;
   text-align: center;
-  padding: 3rem 2rem;
 }
 
 .more-button {
@@ -53,7 +54,7 @@
 
 .animal-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 kolumny */
+  grid-template-columns: repeat(4, 1fr); /* 4 kolumny */
   gap: 2rem;
   justify-items: center;
   margin: 2rem auto;
@@ -93,6 +94,18 @@
 
   .about-text {
     text-align: center;
+  }
+}
+
+@media (max-width: 992px) {
+  .animal-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 karty w rzędzie */
+  }
+}
+
+@media (max-width: 570px) {
+  .animal-list {
+    grid-template-columns: 1fr; /* 1 karta w rzędzie */
   }
 }
 

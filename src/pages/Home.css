@@ -1,0 +1,100 @@
+/* Wrapper całej strony */
+.page-wrapper {
+  max-width: 1200px;  /* szerokość strony */
+  margin: 0 auto;     /* centrowanie w poziomie */
+  box-sizing: border-box;
+}
+
+/*sekcja o nas na stronie głównej*/
+.about-section {
+  background-color: #fdf6f0;
+  padding: 50px 20px;
+}
+
+.about-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-text h3 {
+  font-size: 22px;
+  color: #a0522d;
+  margin-bottom: 15px;
+}
+
+.about-text p {
+  line-height: 1.6;
+  color: #333;
+}
+
+
+.adoption-section {
+  background-color: #fff5ed;
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.more-button {
+  margin-top: 1.5rem;
+  background-color: #b15d2c;
+  color: white;
+  padding: 0.5rem 2rem;
+  border: none;
+  border-radius: 999px;
+}
+
+.animal-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 kolumny */
+  gap: 2rem;
+  justify-items: center;
+  margin: 2rem auto;
+  max-width: 900px;
+}
+
+.about-img {
+   flex: 1 1 300px;
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* nie ucina obrazka */
+  border-radius: 10px;
+}
+
+/* Obrazek zmniejsza się proporcjonalnie od 900px */
+@media (max-width: 900px) {
+  .about-img {
+    max-width: 40%;
+  }
+}
+
+/* Poniżej 700px obrazek pod tekst */
+@media (max-width: 700px) {
+  .about-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-img {
+    max-width: 80%;
+    height: auto;
+    margin-top: 1rem;
+    order: -1; /* przesuwa obrazek nad tekst */
+  }
+
+  .about-text {
+    text-align: center;
+  }
+}
+
+
+

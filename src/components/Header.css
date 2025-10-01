@@ -1,0 +1,73 @@
+.header {
+  background-color: #fce6d6;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Logo */
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+/* Linki w linii */
+.nav {
+  display: flex;
+}
+
+.nav a {
+  margin-left: 1rem;
+  font-size: 12px;
+  text-decoration: none;
+  color: #333;
+  text-transform: uppercase; /* zamienia wszystkie litery na duże */
+}
+
+/* Hamburger — domyślnie ukryty */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  border-radius: 2px;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .nav {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #fce6d6;
+    flex-direction: column;
+    width: 200px;
+    display: none;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .nav.open {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+

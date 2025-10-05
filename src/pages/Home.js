@@ -1,43 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import HeroSection from "../components/HeroSection";
-import AnimalCard from "../components/AnimalCard";
+import BlogSection from "../components/BlogSection";
+import AnimalList from "../components/AnimalList";
+import Footer from "../components/Footer"; // <-- dodany import stopki
+import posts from "../data/postsData";
+import animalsData from "../data/animalsData";
 import "./Home.css";
 
 const Home = () => {
   const [selectedSpecies, setSelectedSpecies] = useState("Pies");
-  const [visibleAnimals, setVisibleAnimals] = useState([]);
 
-  const animals = [
-    { name: "Junior", gender: "On", age: "Młody", size: "Średni", img: "/img/junior.jpg" },
-    { name: "Tosia", gender: "Ona", age: "Senior", size: "Duża", img: "/img/tosia.jpg" },
-    { name: "Heniek", gender: "On", age: "Dorosły", size: "Średni", img: "/img/heniek.jpg" },
-    { name: "Maja i Kaja", gender: "One", age: "Młode", size: "Małe", img: "/img/majaikaja.jpg" },
-    { name: "Klemens", gender: "On", age: "Senior", size: "-", img: "/img/klemens.jpg" },
-    { name: "Pantera", gender: "Ona", age: "Młoda", size: "-", img: "/img/pantera.jpg" },
-    { name: "Jamal", gender: "On", age: "Dorosły", size: "-", img: "/img/jamal.jpg" },
-    { name: "Bunia", gender: "Ona", age: "Junior", size: "-", img: "/img/bunia.jpg" },
-  ];
-
-  // Ustawienie widocznych kart w zależności od szerokości ekranu
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 570) {
-        setVisibleAnimals(animals.slice(0, 4)); // tylko 4 karty
-      } else {
-        setVisibleAnimals(animals); // wszystkie karty
-      }
-    };
-
-    handleResize(); // ustawienie przy pierwszym renderze
-    window.addEventListener("resize", handleResize); // aktualizacja przy zmianie rozmiaru
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [animals]);
-
-  // JSX filtrów przekazywany do HeroSection (nie zmieniany)
   const filtersJSX = (
     <div className="filters">
-      <div className="filters-row">
+      {/* Grupa 1: Typ zwierzaka */}
+      <div className="filters-row type-row">
         <button
           type="button"
           className={selectedSpecies === "Pies" ? "active" : ""}
@@ -54,7 +30,8 @@ const Home = () => {
         </button>
       </div>
 
-      <div className="filters-row">
+      {/* Grupa 2: Wielkość / Wiek / Płeć */}
+      <div className="filters-row traits-row">
         <select disabled={selectedSpecies === "Kot"}>
           <option value="">Wielkość</option>
           <option value="Mały">Mały</option>
@@ -76,8 +53,11 @@ const Home = () => {
         </select>
       </div>
 
-      <div className="filters-row">
-        <button type="submit" className="search-button">Szukaj</button>
+      {/* Grupa 3: Szukaj */}
+      <div className="filters-row search-row">
+        <button type="submit" className="search-button">
+          Szukaj
+        </button>
       </div>
     </div>
   );
@@ -93,7 +73,7 @@ const Home = () => {
 
       <section className="about-section">
         <div className="about-content">
-          <img src="/img/kot-i-pies.png" alt="Kot i pies" className="about-img"/>
+          <img src="/img/kot-i-pies.png" alt="Kot i pies" className="about-img" />
           <div className="about-text">
             <h3>O NAS</h3>
             <p>
@@ -101,31 +81,26 @@ const Home = () => {
               opieki. Wspieramy adopcję psów i kotów, a także edukujemy, jak najlepiej
               dbać o swoich czworonożnych przyjaciół.
             </p>
-          </div>      
+          </div>
         </div>
       </section>
 
       <section className="adoption-section">
         <h3>Pupile do adopcji</h3>
-        <div className="animal-list">
-          {visibleAnimals.map((a, i) => (
-            <AnimalCard
-              key={i}
-              name={a.name}
-              gender={a.gender}
-              age={a.age}
-              size={a.size}
-              img={a.img}
-            />
-          ))}
-        </div>
-        <button className="more-button">ZOBACZ WIĘCEJ ZWIERZAKÓW</button>
+        <AnimalList animals={animalsData} />
       </section>
+
+      <BlogSection posts={posts} />
+
+      {/* Stopka */}
+      <Footer />
     </div>
   );
 };
 
 export default Home;
+
+
 
 
 

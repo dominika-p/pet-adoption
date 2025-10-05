@@ -1,12 +1,27 @@
+import React from "react";
 import "./Footer.css";
 
-function Footer() {
+const Footer = () => {
   return (
     <footer className="footer">
-      <p>&copy; {new Date().getFullYear()} Adoptuj Przyjaciela</p>
-      <p>Kontakt: kontakt@adopcja.pl</p>
+      <div className="footer-container">
+        {/* Lewa strona: logo + kontakt */}
+        <div className="footer-left">
+          <img src="/img/logo.png" alt="Logo" className="footer-logo" />
+          <div className="footer-contact">
+            <p>kontakt@adoptujprzyjaciela.pl</p>
+            <p>+48 123 456 789</p>
+          </div>
+        </div>
+
+        {/* Prawa strona: tekst © */}
+        <div className="footer-right">
+          <p>© {new Date().getFullYear()} Adoptuj Przyjaciela. Wszystkie prawa zastrzeżone.</p>
+        </div>
+      </div>
     </footer>
   );
-}
+};
 
 export default Footer;
+

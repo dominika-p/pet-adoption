@@ -15,18 +15,18 @@
   font-size: 2rem;
   margin-bottom: 0.5rem;
   color: #ae5224;
-  text-align: center
+  text-align: center;
 }
 
 .hero-text p {
   margin-bottom: 1rem;
-  text-transform: uppercase;  /* duże litery */
-  font-size: 0.9rem;          /* nieco mniejsza czcionka */
-  color: #00000067;
-  text-align: center             
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  color: #26262667;
+  text-align: center;
 }
 
-/* Filtry - 3 rzędy */
+/*filtry */
 .filters {
   display: flex;
   flex-direction: column;
@@ -34,39 +34,71 @@
   margin-top: 10px;
 }
 
-/* Rząd przycisków Pies/Kot i rząd selectów */
 .filters-row {
   display: flex;
+  justify-content: center;
   gap: 5px;
+}
+
+/*Grupa 1: Typ zwierzaka*/
+.type-row {
+  justify-content: center;
+  gap: 10px;
+}
+
+.type-row button {
+  min-width: 140px;
+}
+
+/*Grupa 2: Filtry cech*/
+.traits-row {
+  justify-content: center;
+  gap: 10px;
+}
+
+.traits-row select {
+  min-width: 150px;
+}
+
+/*Grupa 3: Szukaj*/
+.search-row {
   justify-content: center;
 }
 
-/* Przyciski i selecty */
-.filters button {
-  padding: 10px 20px ; /* większe przyciski */
-  border: 1px solid #ccc;
-  border-radius: 20px;
+.search-row .search-button {
+  min-width: 160px;
+}
+
+/* przyciski */
+.filters-row button {
+  background-color: white;
+  color: #e78c58;
+  border: 1px solid #e78c58;
+  border-radius: 999px;
+  padding: 0.75rem 5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 1rem;
+  transition: all 0.3s;
 }
 
-.filters select {
-  padding: 10px 20px ; /* większe przyciski */
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 15px;
+.filters-row button:hover {
+  background-color: #fff5ef;
 }
 
-.filters-row select {
-  flex: 1;
+.filters-row button.active {
+  background-color: #e78c58;
+  color: white;
+  border: 2px solid #e78c58;
+  font-weight: bold;
 }
 
-/* Search-button - trzeci rząd */
-/* Styl przycisku Szukaj */
+/* przycisk Szukaj */
 .search-button {
-  background-color: #e78c58; /* pomarańczowy */
-  color: white;              /* biały tekst */
+  background-color: #e78c58;
+  color: white;
   padding: 0.75rem 2rem;
   border: none;
   border-radius: 999px;
@@ -77,38 +109,61 @@
   transition: all 0.3s;
 }
 
-/* Hover dla Szukaj */
 .search-button:hover {
-  background-color: #e78c58; /* ciemniejszy pomarańcz na hover */
-  color: #fcfcfc;
+  background-color: #d97540;
 }
 
-
-.filters-row button {
-  background-color: white;
-  color: #e78c58;
-  border: 1px solid #e78c58;
+/* selecty */
+.filters select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 10px 50px 10px 20px; 
+  border: 1px solid #ccc;
   border-radius: 999px;
-  padding: 0.75rem 5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem; /* odstęp ikony od tekstu */
+  font-size: 15px;
+  color: #555;
   cursor: pointer;
-  font-size: 1rem;
-  transition: all 0.3s;
-  
+  background-color: #fff;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23e78c58' height='26' viewBox='0 0 24 24' width='26' xmlns='http://www.w3.org/2000/svg'><path d='M7 9l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  background-size: 20px;
+  transition: all 0.2s ease-in-out;
 }
 
-/* Styl aktywnego przycisku */
-.filters-row button.active {
-  background-color: #e78c58; /* pomarańczowe tło */
-  color: white;               /* biały tekst */
-  border: 2px solid #e78c58;
-  font-weight: bold;
+.filters select:hover {
+  border-color: #e78c58;
+  box-shadow: 0 0 6px rgba(231, 140, 88, 0.3);
+}
+
+.filters select:focus {
+  outline: none;
+  border-color: #e78c58;
+  box-shadow: 0 0 0 3px rgba(231, 140, 88, 0.25);
+}
+
+/*Styl rozwijanej listy*/
+.filters select option {
+  background-color: #fffaf7; /* lekko kremowe tło */
+  color: #333;
+  padding: 10px 15px;
+  font-size: 0.95rem;
+}
+
+/*efekt hovera*/
+.filters select option:hover,
+.filters select option:checked {
+  background-color: #fde2cf; /* pastelowy pomarańcz */
+  color: #ae5224;
+}
+
+select::-ms-expand {
+  display: none;
 }
 
 
-/* Hero image responsywne */
+/*obrazek*/
 .hero-img {
   max-width: 500px;
   width: 100%;
@@ -117,15 +172,13 @@
   border-radius: 10px;
 }
 
-/* Obrazek zmniejsza się proporcjonalnie od 900px */
-@media (max-width: 980px) {
+@media (max-width: 992px) {
   .hero-img {
     max-width: 40%;
   }
 }
 
-/* Poniżej 700px obrazek pod tekst */
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   .hero-section {
     flex-direction: column;
     align-items: center;
@@ -136,12 +189,12 @@
     max-width: 80%;
     height: auto;
     margin-top: 1rem;
-    order: -1; /* przesuwa obrazek nad tekst */
+    order: -1; /* obrazek nad tekstem */
   }
 }
 
-/* Drobne poprawki dla bardzo małych ekranów */
-@media (max-width: 400px) {
+
+@media (max-width: 480px) {
   .filters {
     gap: 0.5rem;
   }
@@ -159,9 +212,8 @@
     font-size: 0.9rem;
     min-width: auto;
   }
-
-  
 }
+
 
 
 

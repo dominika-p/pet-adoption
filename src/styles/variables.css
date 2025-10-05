@@ -1,0 +1,11 @@
+:root {
+  --primary-color: #b15d2c;       /* główny kolor przycisków */
+  --secondary-color: #a0522d;   /* ciemniejszy brąz, np. hover */
+  --button-color: #e78c58;      /*kolor przycisku*/
+  --button-text-color: #fff;      /* tekst przycisków */
+  --button-active-bg: #fff;       /* tło przycisku po kliknięciu */
+  --button-active-text: #b15d2c;  /* tekst przycisku po kliknięciu */
+  --section-bg-color: #fce6d6;    /* tło sekcji O NAS */
+  --text-color: #555;             /* tekst w paragrafach */
+  --text-dark-color: #333;        /* ciemniejszy tekst */
+}

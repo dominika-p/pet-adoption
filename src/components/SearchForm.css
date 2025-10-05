@@ -57,7 +57,7 @@
 }
 
 /* Responsywność - na telefonach pola w kolumnie */
-@media (max-width: 600px) {
+@media (max-width: 576px) {
 	.search-form {
 		flex-direction: column;
 		align-items: stretch;

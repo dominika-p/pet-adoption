@@ -1,0 +1,54 @@
+.adoption-contact {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fffaf7;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.adoption-contact h2 {
+  color: #ae5224;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.adoption-contact form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.adoption-contact input,
+.adoption-contact textarea {
+  padding: 0.8rem 1rem;
+  border-radius: 999px;
+  border: 1px solid #e78c58;
+  font-size: 0.95rem;
+  outline: none;
+  resize: none;
+}
+
+.adoption-contact input:focus,
+.adoption-contact textarea:focus {
+  border-color: #d97540;
+  box-shadow: 0 0 0 3px rgba(231,140,88,0.2);
+}
+
+.adoption-contact button {
+  padding: 0.6rem;
+  border-radius: 999px;
+  border: none;
+  background-color: #e78c58;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.adoption-contact button:hover {
+  background-color: #d97540;
+}

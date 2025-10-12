@@ -1,73 +1,71 @@
 /* Wrapper listy zwierzaków */
 .animal-list-wrapper {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 2rem auto;
+  padding: 0 1rem; /* padding po bokach */
   text-align: center;
 }
 
 /* Grid kart */
 .animal-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 1rem;
-  row-gap: 3rem;
+  grid-template-columns: repeat(4, 1fr); /* domyślnie 4 kolumny */
+  gap: 1rem;
   justify-items: center;
+}
+
+/* Pojedyncza karta */
+.animal-list > div {
+  width: 250px; /* stała szerokość karty */
 }
 
 /* Przyciski ZOBACZ WIĘCEJ */
 .more-button {
-  margin-top: 4rem;
-  background-color: var(--button-color);
+  margin-top: 3rem;
+  background-color: #e78c58;
   color: #fff;
-  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.9rem 2.5rem;
   border: none;
   border-radius: 999px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .more-button:hover {
-  background-color: var(--secondary-color);
-  font-weight: bold;
-}
-
-/* Responsywność - obrazek w sekcji O NAS */
-@media (max-width: 992px) {
-  .about-img {
-    max-width: 40%;
-  }
-}
-
-@media (max-width: 768px) {
-  .about-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .about-img {
-    max-width: 80%;
-    margin-top: 1rem;
-    order: -1;
-  }
+  background-color: #d97540;
+  transform: scale(1.05);
 }
 
 /* Responsywność gridu zwierzaków */
+
+/* Ekrany mniejsze niż 992px - 3 kolumny */
 @media (max-width: 992px) {
   .animal-list {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 768px) {
+/* Ekrany mniejsze niż 768px - 2 kolumny, maks 4 karty */
+@media (max-width: 820px) {
   .animal-list {
     grid-template-columns: repeat(2, 1fr);
   }
+  .animal-list > div:nth-child(n+5) {
+    display: none; /* ukrywa wszystkie karty powyżej 4 */
+  }
 }
 
+/* Ekrany mniejsze niż 576px - 1 kolumna, maks 2 karty */
 @media (max-width: 576px) {
   .animal-list {
     grid-template-columns: 1fr;
   }
+  .animal-list > div:nth-child(n+3) {
+    display: none; /* ukrywa wszystkie karty powyżej 2 */
+  }
 }
+
+
 

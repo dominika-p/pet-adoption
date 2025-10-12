@@ -4,6 +4,8 @@ const animalsData = [
     species: "Pies",
     gender: "On",
     age: "Młody",
+    ageYears: 0,
+    ageMonths: 8,
     size: "Średni",
     img: "/img/junior.jpg",
     shelterTime: "3 miesiące",
@@ -16,7 +18,9 @@ const animalsData = [
     species: "Pies",
     gender: "Ona",
     age: "Senior",
-    size: "Duża",
+    ageYears: 9,
+    ageMonths: 0,
+    size: "Duży",
     img: "/img/tosia.jpg",
     shelterTime: "2 lata",
     history: "Tosia mieszka w schronisku od 2 lat, jest spokojna i uwielbia przytulanie.",
@@ -28,6 +32,8 @@ const animalsData = [
     species: "Pies",
     gender: "On",
     age: "Dorosły",
+    ageYears: 3,
+    ageMonths: 0,
     size: "Średni",
     img: "/img/heniek.jpg",
     shelterTime: "6 miesięcy",
@@ -39,8 +45,10 @@ const animalsData = [
     name: "Maja",
     species: "Pies",
     gender: "Ona",
-    age: "Młoda",
-    size: "Mała",
+    age: "Młody",
+    ageYears: 0,
+    ageMonths: 11,
+    size: "Mały",
     img: "/img/maja.jpg",
     shelterTime: "1 miesiąc",
     history: "Maja uwielbia dzieci i spacery, jest bardzo energiczna i radosna.",
@@ -52,7 +60,9 @@ const animalsData = [
     species: "Kot",
     gender: "On",
     age: "Senior",
-    size: "-",
+    ageYears: 12,
+    ageMonths: 0,
+    size: "-", // koty nie mają przypisanej wielkości
     img: "/img/klemens.jpg",
     shelterTime: "3 lata",
     history: "Klemens jest spokojnym kotem, lubi ciszę i drzemki w słonecznym miejscu.",
@@ -63,7 +73,9 @@ const animalsData = [
     name: "Pantera",
     species: "Kot",
     gender: "Ona",
-    age: "Młoda",
+    age: "Młody",
+    ageYears: 1,
+    ageMonths: 6,
     size: "-",
     img: "/img/pantera.jpg",
     shelterTime: "2 miesiące",
@@ -76,6 +88,8 @@ const animalsData = [
     species: "Kot",
     gender: "On",
     age: "Dorosły",
+    ageYears: 4,
+    ageMonths: 0,
     size: "-",
     img: "/img/jamal.jpg",
     shelterTime: "1 rok",
@@ -87,7 +101,9 @@ const animalsData = [
     name: "Bunia",
     species: "Kot",
     gender: "Ona",
-    age: "Junior",
+    age: "Młody",
+    ageYears: 0,
+    ageMonths: 6,
     size: "-",
     img: "/img/bunia.jpg",
     shelterTime: "1 miesiąc",
@@ -98,5 +114,8 @@ const animalsData = [
 ];
 
 export default animalsData;
+
+
+
 
 

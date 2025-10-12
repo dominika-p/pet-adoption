@@ -1,14 +1,14 @@
 .blog-section {
-  padding: 2rem;
-  max-width: 1000px;
+  padding: 1rem;
   margin: 0 auto; /* centruje całą sekcję */
   text-align: center;
+  background-color: #fce6d6;
 }
 
 .blog-section h3 {
-  margin: 0 auto; /* centruje całą sekcję */
+  margin: 0 auto; /* centruje nagłówek */
   text-align: center;
-  color: var(--secondary-color);
+  color: #ae5224;
   font-size: 25px;
 }
 
@@ -58,26 +58,57 @@
   text-decoration: none;
 }
 
-/* Responsywność */
+/* Przycisk "Zobacz więcej wpisów" */
+.blog-section .adopt-button {
+  margin-top: 1rem;
+  background-color: #e78c58;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.9rem 2.5rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-/* Poniżej 992px – 2 kolumny w 1 rzędzie (lub zmniejszamy szerokość grid) */
+.blog-section .adopt-button:hover {
+  background-color: #d97540;
+  transform: scale(1.05);
+}
+
+/* Responsywność przycisku */
+@media (max-width: 768px) {
+  .blog-section .adopt-button {
+    padding: 0.7rem 2rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .blog-section .adopt-button {
+    padding: 0.6rem 1.8rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Responsywność gridu */
 @media (max-width: 992px) {
   .blog-list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Poniżej 768px – 2 kolumny, ale mniejsze karty */
 @media (max-width: 768px) {
   .blog-list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Poniżej 576px – 1 kolumna */
 @media (max-width: 576px) {
   .blog-list {
     grid-template-columns: 1fr;
   }
 }
+
 

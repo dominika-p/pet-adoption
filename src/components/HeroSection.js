@@ -1,19 +1,34 @@
 import React from "react";
 import "./HeroSection.css";
+import { useNavigate } from "react-router-dom";
 
-const HeroSection = ({ img, title, subtitle, filters }) => {
+const HeroSection = ({ img }) => {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/adopcja"); // ścieżka do strony ze zwierzakami
+  };
+
   return (
-    <section className="hero-section">
-      <div className="hero-text">
-        <h2>{title}</h2>
-        <p>{subtitle}</p>
-        {filters} {/* JSX filtrów przekazany z Home.js */}
+    <header className="hero-section">
+      <div className="page-wrapper hero-wrapper">
+        <div className="hero-text">
+          <h2>Adoptuj przyjaciela</h2>
+          <p>
+            Podaruj dom, miłość i nowe życie zwierzakowi, który czeka właśnie na Ciebie.
+            Każdy pupil zasługuje na drugą szansę – być może to właśnie Ty możesz ją dać.
+          </p>
+          <button className="adopt-button" onClick={handleNavigate}>
+            Zobacz zwierzaki do adopcji
+          </button>
+        </div>
+        <img src={img} alt="Pies i kot" className="hero-img" />
       </div>
-      <img src={img} alt="hero" className="hero-img" />
-    </section>
+    </header>
   );
 };
 
 export default HeroSection;
+
 
 

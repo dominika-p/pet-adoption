@@ -39,12 +39,21 @@
 .card-content button {
   margin-top: 1rem; 
   font-size: 12px;
+  font-weight: bold;
   padding: 0.4rem 1.2rem;
   border: none;
   border-radius: 999px;
-  background-color: #b15d2c;
+  background-color: var(--button-color);
+  background-color: #e78c58;
   color: white;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
+.card-content button:hover {
+  background-color: #8c3f1a; /* ciemniejszy odcień przycisku */
+  transform: scale(1.05); /* lekki efekt powiększenia */
+}
+
 
 

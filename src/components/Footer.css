@@ -1,17 +1,21 @@
 .footer {
+  width: 100%;               /* pełna szerokość ekranu */
   background-color: #fce6d6;
-  padding: 1.5rem 1rem;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.08);
   margin-top: 3rem;
+  padding: 1.5rem 0;         /* tylko góra/dół */
+  position: relative;
+  z-index: 1000;
 }
 
 .footer-container {
+  max-width: 1200px;         /* ograniczenie szerokości zawartości */
+  margin: 0 auto;            /* wyśrodkowanie */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: auto;
   flex-wrap: wrap;
+  padding: 0 1.5rem;         /* padding po bokach tylko dla zawartości */
   gap: 1rem;
 }
 
@@ -56,4 +60,9 @@
     text-align: center;
   }
 }
+
+
+
+
+
 

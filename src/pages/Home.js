@@ -1,104 +1,76 @@
-import React, { useState } from "react";
+import React from "react";
 import HeroSection from "../components/HeroSection";
 import BlogSection from "../components/BlogSection";
 import AnimalList from "../components/AnimalList";
-import Footer from "../components/Footer"; // <-- dodany import stopki
+import Footer from "../components/Footer";
 import posts from "../data/postsData";
 import animalsData from "../data/animalsData";
 import "./Home.css";
 
 const Home = () => {
-  const [selectedSpecies, setSelectedSpecies] = useState("Pies");
-
-  const filtersJSX = (
-    <div className="filters">
-      {/* Grupa 1: Typ zwierzaka */}
-      <div className="filters-row type-row">
-        <button
-          type="button"
-          className={selectedSpecies === "Pies" ? "active" : ""}
-          onClick={() => setSelectedSpecies("Pies")}
-        >
-          Pies
-        </button>
-        <button
-          type="button"
-          className={selectedSpecies === "Kot" ? "active" : ""}
-          onClick={() => setSelectedSpecies("Kot")}
-        >
-          Kot
-        </button>
-      </div>
-
-      {/* Grupa 2: Wielkość / Wiek / Płeć */}
-      <div className="filters-row traits-row">
-        <select disabled={selectedSpecies === "Kot"}>
-          <option value="">Wielkość</option>
-          <option value="Mały">Mały</option>
-          <option value="Średni">Średni</option>
-          <option value="Duży">Duży</option>
-        </select>
-
-        <select>
-          <option value="">Wiek</option>
-          <option value="Młody">Młody</option>
-          <option value="Dorosły">Dorosły</option>
-          <option value="Senior">Senior</option>
-        </select>
-
-        <select>
-          <option value="">Płeć</option>
-          <option value="On">On</option>
-          <option value="Ona">Ona</option>
-        </select>
-      </div>
-
-      {/* Grupa 3: Szukaj */}
-      <div className="filters-row search-row">
-        <button type="submit" className="search-button">
-          Szukaj
-        </button>
-      </div>
-    </div>
-  );
+  const latestAnimals = animalsData.slice(-4).reverse();
 
   return (
-    <div className="page-wrapper">
-      <HeroSection
-        img="/img/dog-cat-hero.jpg"
-        title="Adoptuj zwierzaka"
-        subtitle="Nasze pupile czekają na Ciebie"
-        filters={filtersJSX}
-      />
+    <>
+      {/* Hero z pełnym tłem */}
+      <HeroSection img="/img/dog-cat-hero.png" />
 
+      {/* Sekcja O NAS */}
       <section className="about-section">
-        <div className="about-content">
-          <img src="/img/kot-i-pies.png" alt="Kot i pies" className="about-img" />
-          <div className="about-text">
-            <h3>O NAS</h3>
-            <p>
-              Naszą misją jest znajdowanie nowych domów dla zwierząt potrzebujących
-              opieki. Wspieramy adopcję psów i kotów, a także edukujemy, jak najlepiej
-              dbać o swoich czworonożnych przyjaciół.
-            </p>
+        <div className="page-wrapper">
+          <div className="about-content">
+            <img
+              src="/img/kot-i-pies.png"
+              alt="Kot i pies"
+              className="about-img"
+            />
+            <div className="about-text">
+              <h3>O NAS</h3>
+              <p>
+                Naszą misją jest łączenie ludzi o wielkich sercach ze zwierzętami,
+                które potrzebują nowego domu. Każdy pies i kot w naszym schronisku
+                ma swoją historię – czasem trudną, ale z nadzieją na szczęśliwe
+                zakończenie.
+              </p>
+              <p>
+                Wspieramy adopcję poprzez odpowiedzialne podejście – pomagamy
+                przyszłym opiekunom przygotować się na nowego przyjaciela,
+                doradzamy w kwestiach opieki i wychowania oraz dzielimy się
+                doświadczeniem, jak zapewnić pupilowi szczęśliwe życie.
+              </p>
+              <p>
+                Nasz zespół wolontariuszy codziennie udowadnia, że
+                miłość do zwierząt potrafi zmieniać świat.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* Sekcja adopcji */}
       <section className="adoption-section">
-        <h3>Pupile do adopcji</h3>
-        <AnimalList animals={animalsData} />
+        <div className="page-wrapper">
+          <h3>Ostatnio dodane zwierzaki do adopcji</h3>
+          <AnimalList animals={latestAnimals} />
+        </div>
       </section>
 
-      <BlogSection posts={posts} />
+      {/* Sekcja blogowa */}
+      <section className="blog-section">
+        <div className="page-wrapper">
+          <BlogSection posts={posts} />
+        </div>
+      </section>
 
       {/* Stopka */}
       <Footer />
-    </div>
+    </>
   );
 };
 
 export default Home;
+
+
 
 
 

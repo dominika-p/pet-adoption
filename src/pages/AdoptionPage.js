@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import animalsData from "../data/animalsData";
 import AdoptionAnimalCard from "../components/AdoptionAnimalCard";
+import AnimalModal from "../components/AnimalModal";
 import "./AdoptionPage.css";
 
 const AdoptionPage = () => {
@@ -13,35 +13,50 @@ const AdoptionPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedAnimal, setSelectedAnimal] = useState(null);
 
-  const navigate = useNavigate();
   const itemsPerPage = 20;
 
   useEffect(() => {
-    if (speciesFilter) {
-      let result = animalsData.filter((animal) =>
-        speciesFilter === "Wszystkie" ? true : animal.species === speciesFilter
-      );
+    // Filtrowanie po gatunku od razu po zmianie
+    if (speciesFilter && speciesFilter !== "Wszystkie") {
+      const result = animalsData.filter(animal => animal.species === speciesFilter);
       setFilteredAnimals(result);
-      setCurrentPage(1);
     } else {
       setFilteredAnimals(animalsData);
     }
+    setCurrentPage(1);
   }, [speciesFilter]);
 
+  const normalizeSize = (size) => {
+    if (!size) return "";
+    return size.toLowerCase().replace(/a$/, ""); // usuwa końcówkę 'a' dla żeńskiej formy
+  };
+
   const handleFilter = () => {
-    const result = animalsData.filter((animal) => {
+    const result = animalsData.filter(animal => {
+      // Filtracja wielkości
+      let sizeMatch = true;
+      if (sizeFilter) {
+        sizeMatch = normalizeSize(animal.size) === normalizeSize(sizeFilter);
+      }
+
+      // Filtracja wieku po miesiącach
+      let ageMatch = true;
+      if (ageFilter && animal.ageMonths != null) {
+        if (ageFilter === "Młody") ageMatch = animal.ageMonths <= 12;
+        else if (ageFilter === "Dorosły") ageMatch = animal.ageMonths >= 13 && animal.ageMonths <= 84;
+        else if (ageFilter === "Senior") ageMatch = animal.ageMonths >= 85;
+      }
+
       return (
         (speciesFilter === "" || speciesFilter === "Wszystkie" || animal.species === speciesFilter) &&
-        (ageFilter === "" || animal.age === ageFilter) &&
-        (sizeFilter === "" || animal.size === sizeFilter) &&
+        sizeMatch &&
+        ageMatch &&
         (genderFilter === "" || animal.gender === genderFilter)
       );
     });
+
     setFilteredAnimals(result);
     setCurrentPage(1);
-    setAgeFilter("");
-    setSizeFilter("");
-    setGenderFilter("");
   };
 
   const displayedAnimals = filteredAnimals.slice(
@@ -109,7 +124,6 @@ const AdoptionPage = () => {
             <option value="">Płeć</option>
             <option value="On">On</option>
             <option value="Ona">Ona</option>
-            <option value="One">One</option>
           </select>
 
           <button className="adoption-filter-btn" onClick={handleFilter}>Filtruj</button>
@@ -142,33 +156,22 @@ const AdoptionPage = () => {
         </div>
       )}
 
-      {/* Modal */}
       {selectedAnimal && (
-        <div className="modal-overlay" onClick={() => setSelectedAnimal(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3>{selectedAnimal.name}</h3>
-            <img src={selectedAnimal.img} alt={selectedAnimal.name} />
-            <p><strong>Wiek:</strong> {selectedAnimal.age}</p>
-            <p><strong>Wielkość:</strong> {selectedAnimal.size}</p>
-            <p><strong>Czas w schronisku:</strong> {selectedAnimal.shelterTime}</p>
-            <p><strong>Historia:</strong> {selectedAnimal.history}</p>
-            <p><strong>Może mieszkać z innymi zwierzętami:</strong> {selectedAnimal.goodWithAnimals}</p>
-            <p><strong>Może mieszkać z dziećmi:</strong> {selectedAnimal.goodWithKids}</p>
-
-            <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem", justifyContent: "center" }}>
-              <button onClick={() => setSelectedAnimal(null)}>Zamknij</button>
-              <button onClick={() => navigate(`/adoption-contact/${selectedAnimal.name}`)}>
-                Skontaktuj się w sprawie adopcji
-              </button>
-            </div>
-          </div>
-        </div>
+        <AnimalModal
+          animal={selectedAnimal}
+          onClose={() => setSelectedAnimal(null)}
+          showAdoptionButton={true}
+        />
       )}
     </div>
   );
 };
 
 export default AdoptionPage;
+
+
+
+
 
 
 

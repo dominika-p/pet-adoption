@@ -24,12 +24,16 @@ const BlogSection = ({ posts }) => {
             <div className="blog-content">
               <h4>{post.title}</h4>
               <p>{post.excerpt}</p>
-              <button
-                className="adopt-button" // używamy tego samego stylu co wszystkie przyciski
-                onClick={() => navigate(`/blog/${post.slug}`)}
+              <a
+                href={post.link}  // link do artykułu
+                className="read-more"
+                onClick={(e) => {
+                  e.preventDefault();       // nie przeładowuje strony
+                  navigate(post.link);      // dynamiczne przekierowanie
+                }}
               >
                 Czytaj więcej
-              </button>
+              </a>
             </div>
           </div>
         ))}
@@ -43,6 +47,8 @@ const BlogSection = ({ posts }) => {
 };
 
 export default BlogSection;
+
+
 
 
 

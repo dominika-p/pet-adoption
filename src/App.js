@@ -1,13 +1,12 @@
-// src/App.js
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Home from './pages/Home';
-import Admin from './pages/Admin';
-import AdoptionPage from './pages/AdoptionPage';
-import AdoptionContact from './pages/AdoptionContact';
-import BlogPage from './pages/BlogPage';       // strona bloga
-import BlogArticle from './pages/BlogArticle'; // pojedynczy artykuł
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Home from "./pages/Home";
+import Admin from "./pages/Admin";
+import AdoptionPage from "./pages/AdoptionPage";
+import AdoptionContact from "./pages/AdoptionContact";
+import BlogPage from "./pages/BlogPage";
+import BlogArticle from "./pages/BlogArticle";
 
 function App() {
   return (
@@ -27,6 +26,8 @@ function App() {
 }
 
 export default App;
+
+
 
 
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import posts from "../data/postsData";
 import "./BlogPage.css";
@@ -6,6 +6,11 @@ import "./BlogPage.css";
 const BlogPage = () => {
   // sortowanie od najnowszego do najstarszego
   const sortedPosts = [...posts].reverse();
+
+  // przewijanie na górę po wejściu na stronę
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="blog-page-wrapper">
@@ -29,6 +34,7 @@ const BlogPage = () => {
 };
 
 export default BlogPage;
+
 
 
 

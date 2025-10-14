@@ -7,6 +7,8 @@ import AdoptionPage from "./pages/AdoptionPage";
 import AdoptionContact from "./pages/AdoptionContact";
 import BlogPage from "./pages/BlogPage";
 import BlogArticle from "./pages/BlogArticle";
+import AboutUs from "./components/AboutUs";
+import Contact from "./components/Contact";
 
 function App() {
   return (
@@ -14,18 +16,24 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/zwierzak-do-adopcji" element={<AdoptionPage />} />
+        <Route path="/zwierzaki-do-adopcji" element={<AdoptionPage />} />
         <Route path="/adopcja" element={<AdoptionPage />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/adoption-contact/:animalName" element={<AdoptionContact />} />
-        <Route path="/blog" element={<BlogPage />} />          {/* strona główna bloga */}
-        <Route path="/blog/:slug" element={<BlogArticle />} /> {/* pojedynczy artykuł */}
+        <Route
+          path="/adoption-contact/:animalName"
+          element={<AdoptionContact />}
+        />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:slug" element={<BlogArticle />} />
+        <Route path="/kontakt" element={<Contact />} /> 
+        <Route path="/o-nas" element={<AboutUs />} /> 
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
 
 
 

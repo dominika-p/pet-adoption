@@ -43,10 +43,10 @@ const Header = () => {
         <nav ref={navRef} className={`nav ${isOpen ? "open" : ""}`}>
           <a href="/zwierzaki-do-adopcji">Zwierzaki do adopcji</a>
           <a href="/czas-ze-zwierzakiem">Czas ze zwierzakiem</a>
-          <a href="/o-nas">O nas</a>
           <a href="/jak-pomoc">Jak pomóc?</a>
-          <a href="/blog">Blog</a>
           <a href="/wolontariat">wolontariat</a>
+          <a href="/blog">Blog</a>
+          <a href="/o-nas">O nas</a>
           <a href="/kontakt">Kontakt</a>
         </nav>
 

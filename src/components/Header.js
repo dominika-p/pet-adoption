@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom"; // 👈 dodaj import
 import "./Header.css";
 
 const Header = () => {
@@ -26,9 +27,9 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-container">
-        <a href="/" className="logo">
+        <Link to="/" className="logo">
           <img src="/img/logo.png" alt="Adoptuj Przyjaciela" />
-        </a>
+        </Link>
 
         <div
           ref={hamburgerRef}
@@ -41,22 +42,25 @@ const Header = () => {
         </div>
 
         <nav ref={navRef} className={`nav ${isOpen ? "open" : ""}`}>
-          <a href="/zwierzaki-do-adopcji">Zwierzaki do adopcji</a>
-          <a href="/czas-ze-zwierzakiem">Czas ze zwierzakiem</a>
-          <a href="/jak-pomoc">Jak pomóc?</a>
-          <a href="/wolontariat">wolontariat</a>
-          <a href="/blog">Blog</a>
-          <a href="/o-nas">O nas</a>
-          <a href="/kontakt">Kontakt</a>
+          <Link to="/zwierzaki-do-adopcji">Zwierzaki do adopcji</Link>
+          <Link to="/czas-ze-zwierzakiem">Czas ze zwierzakiem</Link>
+          <Link to="/help">Jak pomóc?</Link> 
+          <Link to="/wolontariat">Wolontariat</Link>
+          <Link to="/blog">Blog</Link>
+          <Link to="/o-nas">O nas</Link>
+          <Link to="/kontakt">Kontakt</Link>
         </nav>
 
-        {isOpen && <div className="nav-overlay" onClick={() => setIsOpen(false)} />}
+        {isOpen && (
+          <div className="nav-overlay" onClick={() => setIsOpen(false)} />
+        )}
       </div>
     </header>
   );
 };
 
 export default Header;
+
 
 
 

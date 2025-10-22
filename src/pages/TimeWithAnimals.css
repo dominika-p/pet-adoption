@@ -1,127 +1,151 @@
-.time-with-animals-page {
-  background-color: #fce6d6; 
-  min-height: 100vh;
-  padding-bottom: 2rem;
-}
-
-
-.activity-header {
-  width: 100%;
-  height: 400px;
-  background-size: cover;
-  background-position: center;
+.time-container {
   position: relative;
+  min-height: 100vh;
+  padding: 40px 8%;
+  font-family: "Poppins", sans-serif;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   overflow: hidden;
-  z-index: 0; 
+  color: #5a5a5a;
 }
 
-.activity-header::after {
-  content: "";
+/* Przyciemnienie */
+.time-bg {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: -1;
 }
 
-.activity-title {
-  position: relative;
-  color: #fff;
-  font-size: 2.5rem;
+/* Nagłówek */
+.time-header {
   text-align: center;
-  font-weight: 700;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  margin-bottom: 30px;
+  color: #fff;
 }
 
-
-.activity-wrapper-overlap {
-  max-width: 900px;
-  margin: -80px auto 2rem; 
-  padding: 2rem;
-  background: #fff;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-  position: relative;
-  z-index: 1;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.time-header h1 {
+  font-size: 2.1rem;
+  margin-bottom: 8px;
 }
 
-
-.activity-intro {
+.time-header p {
   font-size: 1rem;
-  color: #5a5a5a;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  text-align: justify;
+  color: #eee;
 }
 
-
-.activity-contact {
+/* Zawartość */
+.time-content {
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: nowrap;
 }
 
-.activity-phone {
-  font-size: 1.1rem;
-  color: #e78c58;
-  text-decoration: underline;
-  align-self: flex-start;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.activity-phone:hover {
-  color: #ae5224;
-}
-
-
-.activity-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.activity-form input,
-.activity-form select,
-.activity-form textarea {
-  padding: 0.8rem;
-  border: 1px solid #ccc;
+/* Boxy */
+.time-info,
+.time-form {
+  flex: 1 1 45%;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 20px;
   border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.time-info h2,
+.time-form h2 {
+  color: #ae5224;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+}
+
+.time-info ul {
+  margin: 8px 0 12px 18px;
+  line-height: 1.5;
   font-size: 0.95rem;
+}
+
+/* Formularz */
+.time-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.time-form label {
+  margin-top: 8px;
+  margin-bottom: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.time-form select,
+.time-form input,
+.time-form textarea {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
   font-family: inherit;
+  font-size: 0.9rem;
 }
 
-.activity-form textarea {
+.time-form textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 80px;
 }
 
-.activity-form button {
-  background-color: #e78c58;
+.time-form button {
+  margin-top: 15px;
+  background-color: #ae5224;
   color: #fff;
   border: none;
-  padding: 0.8rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
+  padding: 10px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  font-size: 0.95rem;
+  transition: 0.3s ease;
 }
 
-.activity-form button:hover {
-  background-color: #ae5224;
+.time-form button:hover {
+  background-color: #e78c58;
+}
+
+/* Komunikat sukcesu */
+.form-success {
+  background-color: #e8f6ec;
+  border-left: 4px solid #3d593b;
+  padding: 16px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  color: #2d593b;
+  font-size: 0.95rem;
 }
 
 /* Responsywność */
-@media (max-width: 768px) {
-  .activity-header { height: 250px; }
-  .activity-title { font-size: 2rem; }
-  .activity-wrapper-overlap { margin: -60px auto 2rem; padding: 1.5rem; }
+@media (max-width: 576px) {
+  .time-container {
+    padding: 25px 4%;
+  }
+
+  .time-content {
+    flex-direction: column;
+    align-items: stretch; /* <- zmiana z center na stretch */
+    gap: 15px; /* możesz zostawić mały odstęp między boxami */
+  }
+
+  .time-info,
+  .time-form {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .time-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .time-header p {
+    font-size: 0.95rem;
+  }
 }
 
-@media (max-width: 576px) {
-  .activity-header { height: 200px; }
-  .activity-title { font-size: 1.6rem; }
-  .activity-wrapper-overlap { margin: -40px auto 2rem; padding: 1rem; }
-}
+

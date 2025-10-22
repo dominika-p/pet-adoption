@@ -22,7 +22,7 @@ const AnimalList = ({ animals }) => {
   }, []);
 
   const handleShowMore = () => {
-    navigate("/zwierzak-do-adopcji");
+    navigate("/zwierzaki-do-adopcji");
   };
 
   return (

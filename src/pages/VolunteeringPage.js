@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./VolunteeringPage.css";
 
 const VolunteeringPage = () => {
@@ -37,7 +38,8 @@ const VolunteeringPage = () => {
           </ul>
 
           <p>
-            Aby dołączyć do wolontariatu, <a href="/volunteer-login">zaloguj się lub zarejestruj konto</a>.
+            Aby dołączyć do wolontariatu,{" "}
+            <Link to="/volunteer-login">zaloguj się lub zarejestruj konto</Link>.
           </p>
         </div>
       </div>
@@ -46,4 +48,5 @@ const VolunteeringPage = () => {
 };
 
 export default VolunteeringPage;
+
 

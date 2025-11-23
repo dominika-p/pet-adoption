@@ -1,0 +1,131 @@
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;  /* wyśrodkowanie poziome */
+  align-items: flex-start;  /* zaczynamy od góry */
+  font-family: 'Poppins', sans-serif;
+  background-color: #fff;
+  color: #4a3f35;
+  padding: 100px 20px;       /* od góry trochę miejsca */
+}
+
+
+/* Kontener formularza */
+.auth-container {
+	width: 100%;
+	max-width: 300px; /* mniejszy formularz */
+	padding: 20px 15px; /* mniejsze paddingi */
+	background: #fce6d6;
+	border-radius: 15px;
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	color: #4a3f35;
+}
+
+/* Nagłówek formularza */
+.auth-container h2 {
+	text-align: center;
+	font-size: 1.4rem; /* mniejszy tytuł */
+	margin-bottom: 18px;
+	font-weight: 700;
+	color: #ae5224;
+}
+
+/* Formularz i pola */
+.auth-form {
+	display: flex;
+	flex-direction: column;
+	gap: 12px; /* mniejsze odstępy między polami */
+}
+
+.auth-form label {
+	font-weight: 600;
+	margin-bottom: 4px;
+	color: #6a5230;
+	font-size: 13px;
+}
+
+.auth-form input {
+	padding: 10px 12px;
+	font-size: 13px;
+	border-radius: 10px;
+	border: 1px solid #d2bfa3;
+	background: #fff;
+	font-family: inherit;
+	transition: 0.2s ease;
+}
+
+.auth-form input:focus {
+	outline: none;
+	border-color: #e78c58;
+	box-shadow: 0 0 6px rgba(231, 140, 88, 0.4);
+}
+
+/* Przycisk logowania/rejestracji */
+.auth-btn {
+	margin-top: 10px;
+	padding: 12px;
+	background-color: #e78c58;
+	color: #fff;
+	border: none;
+	border-radius: 10px;
+	font-size: 14px;
+	cursor: pointer;
+	font-weight: 700;
+	transition: 0.3s ease;
+}
+
+.auth-btn:hover {
+	background-color: #d66a3b;
+	transform: translateY(-1px);
+	box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Link przełączający logowanie/rejestrację */
+.auth-switch {
+	text-align: center;
+	margin-top: 12px;
+	font-size: 12px;
+}
+
+.auth-switch a {
+	color: #e78c58;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.auth-switch a:hover {
+	text-decoration: underline;
+}
+
+/* Link „Nie pamiętasz hasła?” */
+.forgot-password {
+	text-align: right;
+	margin-top: 4px;
+	font-size: 12px;
+}
+
+.forgot-password a {
+	color: #e78c58;
+	text-decoration: none;
+}
+
+.forgot-password a:hover {
+	text-decoration: underline;
+}
+
+/* Responsywność */
+@media (max-width: 576px) {
+	.auth-container {
+		padding: 15px 10px;
+		margin: 0 5px;
+	}
+
+	.auth-container h2 {
+		font-size: 1.2rem;
+	}
+
+	.auth-form input {
+		font-size: 12px;
+	}
+}

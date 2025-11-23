@@ -43,7 +43,7 @@ const TimeWithAnimals = () => {
   // Generowanie godzin 10:00–18:00 co 30 minut
   const generateHours = () => {
     const hours = [];
-    for (let h = 10; h <= 18; h++) {
+    for (let h = 10; h <= 16; h++) {
       hours.push(`${h}:00`);
       if (h !== 18) hours.push(`${h}:30`);
     }

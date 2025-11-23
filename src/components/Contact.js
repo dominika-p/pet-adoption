@@ -55,13 +55,13 @@ const Contact = () => {
           <p><strong>Telefon:</strong> +48 123 456 789</p>
           <p><strong>Email:</strong> kontakt@adoptujprzyjaciela.pl</p>
           <p><strong>Godziny otwarcia:</strong><br />
-            Poniedziałek: 9:00 – 17:00<br />
-            Wtorek: 9:00 – 17:00<br />
-            Środa: 9:00 – 17:00<br />
-            Czwartek: 8:00 – 18:00<br />
-            Piątek: 8:00 – 18:00<br />
-            Sobota: 9:00 – 15:00<br />
-            Niedziela: 10:00 - 14:00
+            Poniedziałek: 10:00 – 18:00<br />
+            Wtorek: 10:00 – 18:00<br />
+            Środa: 10:00 – 18:00<br />
+            Czwartek: 10:00 – 18:00<br />
+            Piątek: 10:00 – 18:00<br />
+            Sobota: 10:00 – 18:00<br />
+            Niedziela: 10:00 - 18:00
             </p>
         </div>
 

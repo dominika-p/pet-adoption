@@ -11,7 +11,7 @@ const VolunteeringRegister = () => {
     password: "",
   });
 
-  const navigate = useNavigate(); // hook do nawigacji
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,31 +21,69 @@ const VolunteeringRegister = () => {
     e.preventDefault();
     console.log("Rejestracja:", formData);
     alert("Konto zostało utworzone!");
-    navigate("/volunteer-login"); // przeniesienie na stronę logowania
+    navigate("/volunteer-login");
   };
 
   return (
-    <div className="auth-page">
+    <div
+      className="auth-page"
+      style={{
+        background: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.1)), url(/img/wolontariat2.jpg) center/cover no-repeat`,
+        minHeight: "100vh",
+      }}
+    >
       <div className="auth-container">
         <h2>Rejestracja wolontariusza</h2>
 
         <form onSubmit={handleSubmit} className="auth-form">
           <label>Imię:</label>
-          <input type="text" name="name" required onChange={handleChange} />
+          <input
+            type="text"
+            name="name"
+            required
+            value={formData.name}
+            onChange={handleChange}
+          />
 
           <label>Data urodzenia:</label>
-          <input type="date" name="birthDate" required onChange={handleChange} />
+          <input
+            type="date"
+            name="birthDate"
+            required
+            value={formData.birthDate}
+            onChange={handleChange}
+          />
 
           <label>Numer telefonu:</label>
-          <input type="tel" name="phone" required onChange={handleChange} />
+          <input
+            type="tel"
+            name="phone"
+            required
+            value={formData.phone}
+            onChange={handleChange}
+          />
 
           <label>Email:</label>
-          <input type="email" name="email" required onChange={handleChange} />
+          <input
+            type="email"
+            name="email"
+            required
+            value={formData.email}
+            onChange={handleChange}
+          />
 
           <label>Hasło:</label>
-          <input type="password" name="password" required onChange={handleChange} />
+          <input
+            type="password"
+            name="password"
+            required
+            value={formData.password}
+            onChange={handleChange}
+          />
 
-          <button type="submit" className="auth-btn">Utwórz konto</button>
+          <button type="submit" className="auth-btn">
+            Utwórz konto
+          </button>
         </form>
 
         <p className="auth-switch">
@@ -57,6 +95,7 @@ const VolunteeringRegister = () => {
 };
 
 export default VolunteeringRegister;
+
 
 
 

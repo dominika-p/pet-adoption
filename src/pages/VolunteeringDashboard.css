@@ -1,13 +1,15 @@
 .dashboard-container {
+  width: 100%;
   max-width: 900px;
   margin: 40px auto;
   padding: 25px;
-  background: #fce6d6;
+  background-color: rgba(252, 230, 214, 0.85); /* półprzezroczyste */
   border-radius: 15px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.12);
   font-family: 'Poppins', sans-serif;
   color: #4a3f35;
 }
+
 
 .dashboard-container h2 {
   text-align: center;

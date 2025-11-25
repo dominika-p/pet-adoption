@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./TimeWithAnimals.css";
 
+
 const TimeWithAnimals = () => {
   const [formData, setFormData] = useState({
     name: "",

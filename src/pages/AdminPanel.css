@@ -1,0 +1,276 @@
+/* Ogólny kontener strony admina */
+.admin-page {
+  min-height: 100vh;
+  padding: 30px 20px;
+  font-family: 'Poppins', sans-serif;
+  color: #4a3f35;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Panel z sidebar i treścią */
+.admin-panel-container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  background-color: rgba(252, 230, 214, 0.95);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+
+/* Tytuł panelu administratora */
+.admin-panel-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ae5224;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Sidebar */
+.admin-sidebar {
+  width: 250px;
+  background-color: rgba(252, 230, 214, 0.95); /* półprzezroczyste, jasne tło */
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-right: 1px solid #d2bfa3;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.admin-sidebar h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ae5224;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.admin-sidebar button {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  transition: 0.2s;
+  text-align: left;
+}
+
+.admin-sidebar button.active,
+.admin-sidebar button:hover {
+  background-color: #e78c58;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Responsive */
+@media(max-width: 900px) {
+  .admin-sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .admin-sidebar button {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+
+/* Główna część panelu */
+.admin-main {
+  flex: 1;
+  padding: 25px;
+  overflow-y: auto;
+}
+
+/* Sekcje */
+.admin-section h2 {
+  color: #ae5224;
+  margin-bottom: 15px;
+}
+
+/* Zwierzaki */
+.animal-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 25px;
+  background: rgba(250, 247, 242, 0.9);
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.animal-form input,
+.animal-form select,
+.animal-form textarea,
+.animal-form button {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #d2bfa3;
+  font-size: 14px;
+}
+
+.animal-form textarea {
+  flex: 1 1 100%;
+  resize: vertical;
+}
+
+.animal-form button {
+  background-color: #e78c58;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  flex: 1 1 100%;
+}
+
+.animal-form button:hover {
+  background-color: #d66a3b;
+}
+
+/* Lista zwierząt */
+.animal-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.animal-item {
+  width: 220px;
+  background: #faf7f2;
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.animal-item img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.animal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.animal-buttons button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #e78c58;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.animal-buttons button:hover {
+  background-color: #d66a3b;
+}
+
+/* Blog */
+.blog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 25px;
+  background: rgba(250, 247, 242, 0.9);
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.blog-form input,
+.blog-form textarea,
+.blog-form button {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #d2bfa3;
+  font-size: 14px;
+}
+
+.blog-form button {
+  background-color: #e78c58;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+}
+
+.blog-form button:hover {
+  background-color: #d66a3b;
+}
+
+.blog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.blog-item {
+  background: #faf7f2;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.blog-item img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.blog-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.blog-buttons button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #e78c58;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.blog-buttons button:hover {
+  background-color: #d66a3b;
+}
+
+/* Responsive */
+@media(max-width: 900px) {
+  .admin-panel-container {
+    flex-direction: column;
+  }
+  .admin-sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+  .animal-list {
+    justify-content: center;
+  }
+}
+
+

@@ -98,7 +98,6 @@
 
 /* Przycisk "Zobacz więcej wpisów" w prawym dolnym rogu */
 .blog-section > .adopt-button {
-  position: absolute;
   bottom: 1.5rem;
   right: 1.5rem;
   background-color: #e78c58;

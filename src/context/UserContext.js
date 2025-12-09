@@ -3,7 +3,10 @@ import { createContext, useState } from "react";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // null = niezalogowany
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem("volunteer");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

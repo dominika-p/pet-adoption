@@ -1,28 +1,27 @@
-import React, { useState } from "react";
-import AdminPanel from "./AdminPanel"; // import panelu admina
-import "./Admin.css";
+import React, { useContext, useState } from "react";
+import AdminPanel from "./AdminPanel";
+import { AuthContext } from "../context/AuthContext";
+import './Admin.css';
 
 const Admin = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { user, login } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // tymczasowa walidacja frontendowa
+    // sztywne dane admina
     if (username === "admin" && password === "haslo123") {
-      setIsLoggedIn(true);
+      login({ username: "admin", role: "admin" });
     } else {
       alert("Niepoprawny login lub hasło");
     }
   };
 
-  // jeśli zalogowany – pokaż panel admina
-  if (isLoggedIn) {
+  if (user && user.role === "admin") {
     return <AdminPanel />;
   }
 
-  // jeśli nie – pokaż ekran logowania
   return (
     <div
       className="admin-page"
@@ -55,9 +54,3 @@ const Admin = () => {
 };
 
 export default Admin;
-
-
-
-
-
-

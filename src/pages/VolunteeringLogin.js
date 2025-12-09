@@ -1,16 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios"; 
+import { UserContext } from "../context/UserContext"; // <- dodajemy context
 import "./VolunteeringLogin.css";
 
 const VolunteeringLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext); // <- pobieramy setter z contextu
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.setItem("user", JSON.stringify({ email }));
-    navigate("/volunteer-dashboard");
+    try {
+      const response = await axios.post("http://localhost:5000/api/volunteers/login", {
+        email,
+        password
+      });
+
+      const loggedUser = response.data;
+      console.log("Zalogowany użytkownik:", loggedUser);
+
+      if (!loggedUser.id) {
+        return alert("Backend nie zwraca id użytkownika!");
+      }
+
+      // zapisujemy zarówno w localStorage, jak i w context
+      localStorage.setItem("volunteer", JSON.stringify(loggedUser));
+      setUser(loggedUser); // <- tutaj aktualizujemy context, Header od razu się przeładuje
+      navigate("/volunteer-dashboard");
+    } catch (err) {
+      alert("Błędny email lub hasło");
+    }
   };
 
   return (
@@ -48,9 +69,3 @@ const VolunteeringLogin = () => {
 };
 
 export default VolunteeringLogin;
-
-
-
-
-
-

@@ -1,24 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { UserContext } from "../context/UserContext";
 import "./Header.css";
 
 const Header = () => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  const { user: adminUser, logout: adminLogout } = useContext(AuthContext);
+  const { user: volunteerUser, setUser: setVolunteerUser } = useContext(UserContext);
 
+  const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef(null);
   const hamburgerRef = useRef(null);
 
-  // ➤ Wczytujemy użytkownika z localStorage przy starcie
-  useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
-  }, []);
-
-  // ➤ Kliknięcie poza menu zamyka je
+  // kliknięcie poza menu zamyka je
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -31,40 +26,40 @@ const Header = () => {
         setIsOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  // ➤ Wylogowanie
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
-    setIsOpen(false);
-    navigate("/"); // przekierowanie na stronę główną
+  const handleVolunteerLogout = () => {
+    localStorage.removeItem("volunteer");
+    setVolunteerUser(null);
+    navigate("/volunteer-login");
   };
+
+  const handleAdminLogout = () => {
+    adminLogout();
+    navigate("/admin");
+  };
+
+  // wybór bieżącego użytkownika
+  const currentUser = adminUser || volunteerUser;
+  const isAdmin = !!adminUser;
 
   return (
     <header className="header">
       <div className="header-container">
-
-        {/* LOGO */}
         <Link to="/" className="logo">
           <img src="/img/logo.png" alt="Adoptuj Przyjaciela" />
         </Link>
 
-        {/* HAMBURGER */}
         <div
           ref={hamburgerRef}
           className={`hamburger ${isOpen ? "open" : ""}`}
           onClick={() => setIsOpen(!isOpen)}
         >
-          <div></div>
-          <div></div>
-          <div></div>
+          <div></div><div></div><div></div>
         </div>
 
-        {/* MENU */}
         <nav ref={navRef} className={`nav ${isOpen ? "open" : ""}`}>
           <Link to="/zwierzaki-do-adopcji">Zwierzaki do adopcji</Link>
           <Link to="/czas-ze-zwierzakiem">Czas ze zwierzakiem</Link>
@@ -74,46 +69,41 @@ const Header = () => {
           <Link to="/o-nas">O nas</Link>
           <Link to="/kontakt">Kontakt</Link>
 
-          {/* MOBILE — konto */}
           <div className="account-mobile">
-            {!user ? (
+            {!currentUser ? (
               <Link to="/volunteer-login">Konto</Link>
+            ) : isAdmin ? (
+              <>
+                <Link to="/admin">Panel admina</Link>
+                <button className="logout-btn" onClick={handleAdminLogout}>Wyloguj</button>
+              </>
             ) : (
               <>
-                <Link to="/moje-konto">Moje konto</Link>
-                <button className="logout-btn" onClick={handleLogout}>
-                  Wyloguj
-                </button>
+                <Link to="/volunteer-dashboard">Moje konto</Link>
+                <button className="logout-btn" onClick={handleVolunteerLogout}>Wyloguj</button>
               </>
             )}
           </div>
         </nav>
 
-        {/* DESKTOP — konto */}
         <div className="account-desktop">
-          {!user ? (
+          {!currentUser ? (
             <Link to="/volunteer-login" className="account-link">Konto</Link>
+          ) : isAdmin ? (
+            <>
+              <Link to="/admin" className="account-link">Panel admina</Link>
+              <button onClick={handleAdminLogout} className="logout-btn">Wyloguj</button>
+            </>
           ) : (
             <>
-              <Link to="/moje-konto" className="account-link">Moje konto</Link>
-              <button onClick={handleLogout} className="logout-btn">Wyloguj</button>
+              <Link to="/volunteer-dashboard" className="account-link">Moje konto</Link>
+              <button onClick={handleVolunteerLogout} className="logout-btn">Wyloguj</button>
             </>
           )}
         </div>
-
-        {isOpen && <div className="nav-overlay" onClick={() => setIsOpen(false)} />}
       </div>
     </header>
   );
 };
 
 export default Header;
-
-
-
-
-
-
-
-
-

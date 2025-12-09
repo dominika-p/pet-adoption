@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import animalsData from "../data/animalsData";
 import postsData from "../data/postsData";
+import { AuthContext } from "../context/AuthContext";
 import "./AdminPanel.css";
+import axios from "axios";
 
 const AdminPanel = () => {
+  const { user } = useContext(AuthContext);
+
+  // --- Hooki zawsze na górze ---
   const [activeTab, setActiveTab] = useState("zwierzaki");
   const [animals, setAnimals] = useState(
     animalsData.map((a, index) => ({ ...a, id: index + 1 }))
@@ -30,6 +35,57 @@ const AdminPanel = () => {
     img: "",
   });
 
+  const [tasks, setTasks] = useState([]);
+
+  // --- Pobieranie tasków z backendu ---
+  useEffect(() => {
+    if (!user) return; // nie pobieramy jeśli niezalogowany
+
+    const fetchTasks = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/admin/tasks");
+        setTasks(response.data);
+      } catch (error) {
+        console.error("Błąd pobierania zadań:", error);
+      }
+    };
+
+    fetchTasks();
+  }, [user]);
+
+  const handleAcceptTask = async (taskId) => {
+  try {
+    await axios.post(`http://localhost:5000/api/admin/tasks/${taskId}/approve`);
+
+    setTasks((prev) =>
+      prev.map((t) => (t.id === taskId ? { ...t, status: "APPROVED" } : t))
+    );
+  } catch (error) {
+    console.error("Błąd akceptacji zadania:", error);
+  }
+};
+
+  const handleRejectTask = async (taskId) => {
+  try {
+    const reason = prompt("Podaj powód odrzucenia:") || "Brak powodu";
+
+    await axios.post(
+      `http://localhost:5000/api/admin/tasks/${taskId}/reject`,
+      reason,
+      {
+        headers: { "Content-Type": "text/plain" }
+      }
+    );
+
+    setTasks((prev) =>
+      prev.map((t) => (t.id === taskId ? { ...t, status: "CANCELLED", cancellationReason: reason } : t))
+    );
+  } catch (error) {
+    console.error("Błąd odrzucenia zadania:", error);
+  }
+};
+
+
   // --- Zwierzaki ---
   const addAnimal = () => {
     if (!newAnimal.name || !newAnimal.img) return;
@@ -39,10 +95,7 @@ const AdminPanel = () => {
     if (totalMonths >= 84) ageCategory = "Senior";
     else if (totalMonths >= 12) ageCategory = "Dorosły";
 
-    setAnimals([
-      { ...newAnimal, id: Date.now(), age: ageCategory },
-      ...animals,
-    ]);
+    setAnimals([{ ...newAnimal, id: Date.now(), age: ageCategory }, ...animals]);
 
     setNewAnimal({
       name: "",
@@ -240,13 +293,10 @@ const AdminPanel = () => {
                     </p>
                     <p>{animal.history}</p>
                     <p>
-                      Zwierzęta: {animal.goodWithAnimals}, Dzieci:{" "}
-                      {animal.goodWithKids}
+                      Zwierzęta: {animal.goodWithAnimals}, Dzieci: {animal.goodWithKids}
                     </p>
                     <div className="animal-buttons">
-                      <button onClick={() => deleteAnimal(animal.id)}>
-                        Usuń
-                      </button>
+                      <button onClick={() => deleteAnimal(animal.id)}>Usuń</button>
                       <button
                         onClick={() =>
                           alert(
@@ -273,11 +323,26 @@ const AdminPanel = () => {
 
           {/* Wolontariusze */}
           {activeTab === "wolontariusze" && (
-            <div className="admin-section">
-              <h2>Wolontariusze</h2>
-              <p>Tu będzie lista wolontariuszy i ich aktywności</p>
-            </div>
-          )}
+  <div className="admin-section">
+    <h2>Wolontariusze</h2>
+    <div className="pending-tasks">
+      <h3>Zadania oczekujące na akceptację</h3>
+      {tasks.filter(t => t.status === "PENDING").map(task => (
+  <div key={task.id} className="task-item">
+    <p>Wolontariusz: {task.volunteer}</p>
+    <p>Typ zadania: {task.type}</p>
+    <p>Data: {task.date}</p>
+    <p>Godzina: {task.time}</p>
+    <button onClick={() => handleAcceptTask(task.id)}>Akceptuj</button>
+    <button onClick={() => handleRejectTask(task.id)}>Odrzuć</button>
+  </div>
+))}
+      {tasks.filter(t => t.status === "PENDING").length === 0 && (
+        <p>Brak zadań oczekujących</p>
+      )}
+    </div>
+  </div>
+)}
 
           {/* Blog */}
           {activeTab === "blog" && (
@@ -343,9 +408,3 @@ const AdminPanel = () => {
 };
 
 export default AdminPanel;
-
-
-
-
-
-

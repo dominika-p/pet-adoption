@@ -17,12 +17,28 @@ const VolunteeringRegister = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Rejestracja:", formData);
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("http://localhost:5000/api/volunteers/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Błąd podczas rejestracji");
+    }
+
     alert("Konto zostało utworzone!");
     navigate("/volunteer-login");
-  };
+
+  } catch (error) {
+    console.error(error);
+    alert("Nie udało się zarejestrować");
+  }
+};
 
   return (
     <div

@@ -26,6 +26,31 @@
   margin-bottom: 25px;
 }
 
+.pending-label {
+  color: orange;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.approved-label {
+  color: green;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.cancelled-label {
+  color: red;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.task-note {
+  margin-top: 5px;
+  font-style: italic;
+  color: #555;
+}
+
+
 .calendar-box .react-calendar {
   width: 100%;
   border: none;

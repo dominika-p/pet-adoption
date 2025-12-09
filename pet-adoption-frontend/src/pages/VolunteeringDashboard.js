@@ -5,7 +5,7 @@ import 'react-calendar/dist/Calendar.css';
 import './VolunteeringDashboard.css';
 import { UserContext } from '../context/UserContext';
 
-const dniTygodnia = ['Nd', 'Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'Sb'];
+const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
 const miesiace = [
   'Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'
 ];
@@ -39,16 +39,15 @@ const VolunteeringDashboard = () => {
     loadProfile();
   }, [savedUser]);
 
-  // --- Pobieranie zadań ---
   const fetchTasks = useCallback(async (date) => {
-    if (!savedUser?.id) return;
-    try {
-      const res = await axios.get(`http://localhost:5000/api/tasks/by-volunteer/${savedUser.id}?date=${date}`);
-      setTasks(res.data);
-    } catch (err) {
-      console.error("Błąd pobierania zadań:", err);
-    }
-  }, [savedUser]);
+  if (!user?.id) return;
+  try {
+    const res = await axios.get(`http://localhost:5000/api/tasks/by-volunteer/${user.id}?date=${date}`);
+    setTasks(res.data);
+  } catch (err) {
+    console.error("Błąd pobierania zadań:", err);
+  }
+}, [user]);
 
   useEffect(() => {
     fetchTasks(selectedDate);

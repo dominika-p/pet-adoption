@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("admin");
-    window.location.href = "/admin"; // lub navigate jeśli używasz react-router
+    window.location.href = "/admin";
   };
 
   return (

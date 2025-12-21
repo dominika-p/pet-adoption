@@ -1,0 +1,145 @@
+/* Formularz dodawania zwierzaka */
+.animal-form {
+  margin: 0 auto 25px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: rgba(250, 247, 242, 0.95);
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.animal-form .form-row {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.animal-form .inline-label {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.animal-form label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #4a3f35;
+  font-size: 13px;
+}
+
+.animal-form input,
+.animal-form select,
+.animal-form textarea {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #d2bfa3;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.animal-form textarea {
+  resize: vertical;
+  min-height: 80px;
+  max-height: 200px;
+}
+
+/* Wiek obok siebie */
+.age-inputs {
+  display: flex;
+  gap: 5px;
+}
+
+/* Przyciski formularza */
+.animal-form button {
+  background-color: #e78c58;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: 0.2s;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.animal-form button:hover {
+  background-color: #d66a3b;
+}
+
+/* Lista zwierząt */
+.animal-list {
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.animal-item {
+  width: 260px;
+  background: #faf7f2;
+  border-radius: 12px;
+  padding: 10px;
+  text-align: left;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.animal-item img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.animal-item h4 {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.animal-item p {
+  font-size: 13px;
+  margin: 3px 0;
+}
+
+/* Przycisk usuń po prawej */
+.animal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.animal-buttons button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #e78c58;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  transition: 0.2s;
+}
+
+.animal-buttons button:hover {
+  background-color: #d66a3b;
+}
+
+/* Responsive */
+@media(max-width: 900px) {
+  .animal-form .form-row {
+    flex-direction: column;
+  }
+
+  .animal-list {
+    justify-content: center;
+  }
+
+  .animal-item {
+    width: 100%;
+  }
+}
+
+

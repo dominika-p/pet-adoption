@@ -1,0 +1,122 @@
+.admin-section .react-calendar {
+  width: 100%;
+  max-width: 100%;
+  background: #faf7f2;
+  border: 1px solid #d2bfa3;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
+  color: #4a3f35;
+  margin-bottom: 15px;
+}
+
+.react-calendar__navigation button {
+  color: #ae5224;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  margin: 2px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.react-calendar__navigation button:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #e78c58;
+  color: #fff;
+}
+
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  font-weight: 600;
+  color: #ae5224;
+  margin-bottom: 6px;
+}
+
+.react-calendar__tile {
+  background: transparent;
+  border-radius: 6px;
+  height: 45px;
+  padding: 4px;
+  text-align: center;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.react-calendar__tile:hover {
+  background-color: #f0d9c3;
+}
+
+.react-calendar__tile--now {
+  background-color: #e78c58;
+  color: #fff;
+}
+
+.react-calendar__tile--active {
+  background-color: #ae5224;
+  color: #fff;
+}
+
+/* Kropka pod dniem z zadaniem */
+.dot {
+  width: 6px;
+  height: 6px;
+  background-color: #e78c58; 
+  border-radius: 50%;
+  margin: 2px auto 0;
+}
+
+/* Lista zadań pod kalendarzem */
+.calendar-task-list {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.calendar-task {
+  background: rgba(250, 247, 242, 0.95);
+  border: 1px solid #d2bfa3;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  font-size: 13px;
+  position: relative;
+}
+
+.calendar-task button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 5px 8px;
+  border: none;
+  border-radius: 6px;
+  background-color: #e78c58;
+  color: #fff;
+  cursor: pointer;
+}
+
+.calendar-task button:hover {
+  background-color: #d66a3b;
+}
+
+.cancelled {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+.cancel-reason {
+  font-size: 12px;
+  color: #a00;
+}
+
+/* Responsive */
+@media(max-width: 900px) {
+  .calendar-task {
+    font-size: 12px;
+  }
+}

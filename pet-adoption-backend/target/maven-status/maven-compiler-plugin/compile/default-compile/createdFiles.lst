@@ -2,14 +2,17 @@ org\example\petadoption\model\UserResponse.class
 org\example\petadoption\model\Volunteer.class
 org\example\petadoption\model\TaskStatus.class
 org\example\petadoption\controller\TaskController$CancelRequest.class
+org\example\petadoption\model\Submission.class
 org\example\petadoption\model\TaskRequest.class
 org\example\petadoption\repository\TaskRepository.class
 org\example\petadoption\model\LoginRequest.class
+org\example\petadoption\controller\SubmissionController.class
 org\example\petadoption\controller\VolunteerController.class
 org\example\petadoption\controller\AdminController.class
 org\example\petadoption\config\CorsConfig.class
 org\example\petadoption\PetAdoptionBackendApplication.class
 org\example\petadoption\model\Pet.class
+org\example\petadoption\repository\SubmissionRepository.class
 org\example\petadoption\controller\TaskController.class
 org\example\petadoption\repository\VolunteerRepository.class
 org\example\petadoption\service\VolunteerService.class

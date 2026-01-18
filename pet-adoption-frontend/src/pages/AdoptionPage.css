@@ -3,7 +3,6 @@
 .adoption-page {
   max-width: 1200px;
   margin: auto;
-  padding: 2rem;
   text-align: center;
 }
 
@@ -123,7 +122,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 650px) {
   .adoption-page__grid {
     grid-template-columns: 1fr; /* 1 kolumna na telefonach */
   }

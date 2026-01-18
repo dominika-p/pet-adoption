@@ -18,9 +18,9 @@
 }
 
 .animal-card {
-  background: white;
+  background: #fce6d6;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.30);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -185,15 +185,6 @@
 
 .animal-buttons button:hover {
   background-color: #d66a3b;
-}
-
-/* Zapewnia, że karty mają białe tło i są równe */
-.animal-card {
-    background: #ffffff !important;
-    border: 1px solid #d2bfa3;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
 }
 
 /* Poprawia wygląd nagłówków w kartach */

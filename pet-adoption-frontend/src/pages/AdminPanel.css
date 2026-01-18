@@ -7,6 +7,8 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+
+  position: relative;
 }
 
 /* Panel z sidebar i treścią */
@@ -18,7 +20,11 @@
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.12);
   overflow: hidden;
+
+  position: relative;
+  z-index: 2;
 }
+
 
 /* Sidebar */
 .admin-sidebar {

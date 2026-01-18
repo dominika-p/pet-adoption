@@ -27,21 +27,37 @@ const AdoptionContact = () => {
     setFormData({ ...formData, [name]: type === "checkbox" ? checked : value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Formularz adopcyjny wysłany:", formData);
-    setSubmitted(true);
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      date: "",
-      time: "",
-      visitType: "",
-      message: "",
-      consent: false,
-    });
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  // Mapa technicznych kluczy na ładne nazwy
+  const visitTypeLabels = {
+    firstVisit: "Pierwsza wizyta",
+    meetingAnimal: "Zapoznanie ze zwierzakiem",
+    adoptionAgreement: "Umowa adopcyjna",
+    other: "Inne"
   };
+
+  try {
+    const response = await fetch("http://localhost:5000/api/contact/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...formData,
+        visitType: visitTypeLabels[formData.visitType] || formData.visitType,
+        animalName: animalName 
+      }),
+    });
+
+    if (response.ok) {
+      setSubmitted(true);
+    } else {
+      alert("Błąd serwera. Spróbuj później.");
+    }
+  } catch (error) {
+    alert("Błąd połączenia.");
+  }
+};
 
   return (
     <section

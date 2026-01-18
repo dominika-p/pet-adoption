@@ -3,6 +3,7 @@ import "../components/Contact.css";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
+    email: "",       // nowe pole email
     issue: "",
     subject: "",
     message: "",
@@ -22,25 +23,41 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Wysłano wiadomość:", formData);
-    setSubmitted(true);
-    setFormData({ issue: "", subject: "", message: "" });
+
+    try {
+      const response = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log("Wysłano wiadomość:", formData);
+        setSubmitted(true);
+        setFormData({ email: "", issue: "", subject: "", message: "" });
+      } else {
+        console.error("Błąd przy wysyłaniu wiadomości");
+      }
+    } catch (error) {
+      console.error("Błąd:", error);
+    }
   };
 
   return (
     <section
       className="contact-container"
       style={{
-        backgroundImage: "url(/img/contact.jpg)", // tło z public
+        backgroundImage: "url(/img/contact.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
         position: "relative",
         overflow: "hidden",
       }}
     >
-      {/* Przyciemnienie */}
       <div className="contact-bg"></div>
 
       <div className="contact-header">
@@ -53,7 +70,7 @@ const Contact = () => {
           <h2>Schronisko „Adoptuj przyjaciela”</h2>
           <p><strong>Adres:</strong> ul. Leśna 12, 00-000 Warszawa</p>
           <p><strong>Telefon:</strong> +48 123 456 789</p>
-          <p><strong>Email:</strong> kontakt@adoptujprzyjaciela.pl</p>
+          <p><strong>Email:</strong> kontaktadoptujprzyjaciela@gmail.com</p>
           <p><strong>Godziny otwarcia:</strong><br />
             Poniedziałek: 10:00 – 18:00<br />
             Wtorek: 10:00 – 18:00<br />
@@ -62,7 +79,7 @@ const Contact = () => {
             Piątek: 10:00 – 18:00<br />
             Sobota: 10:00 – 18:00<br />
             Niedziela: 10:00 - 18:00
-            </p>
+          </p>
         </div>
 
         <div className="contact-form">
@@ -74,6 +91,17 @@ const Contact = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
+              <label htmlFor="email">Twój email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Wpisz swój email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+
               <label htmlFor="issue">Wybierz sprawę:</label>
               <select
                 name="issue"
@@ -121,4 +149,3 @@ const Contact = () => {
 };
 
 export default Contact;
-

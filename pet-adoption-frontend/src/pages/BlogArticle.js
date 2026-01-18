@@ -1,53 +1,67 @@
-import React, { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import posts from "../data/postsData";
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
 import "./BlogArticle.css";
 
 const BlogArticle = () => {
-  const { slug } = useParams();
-  const navigate = useNavigate();
+  const { id } = useParams(); // Pobiera :id z adresu URL
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const post = posts.find((p) => p.link.endsWith(slug));
-
-  // ⬇️ Przewinięcie do góry po załadowaniu artykułu
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [slug]);
+    fetchPost();
+  }, [id]);
 
-  if (!post) return <p className="blog-article-not-found">Nie znaleziono artykułu</p>;
+  const fetchPost = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/blog/${id}`);
+      if (response.ok) {
+        const data = await response.json();
+        setPost(data);
+      } else {
+        console.error("Artykuł nie został znaleziony w bazie");
+      }
+    } catch (error) {
+      console.error("Błąd połączenia z API:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) return <div className="blog-article-container"><p>Ładowanie treści...</p></div>;
+  
+  if (!post) return (
+    <div className="blog-article-container">
+      <h2>Nie znaleziono artykułu</h2>
+      <Link to="/blog" className="back-link">Wróć do listy wpisów</Link>
+    </div>
+  );
 
   return (
-    <div className="blog-article-container">
-      {/* Nagłówek z tłem */}
-      <header
-        className="blog-article-header"
+    <article className="blog-article">
+      <header 
+        className="article-header" 
         style={{ backgroundImage: `url(${post.img})` }}
       >
-        <h1 className="blog-article-title">{post.title}</h1>
+        <div className="article-header-content">
+          <h1>{post.title}</h1>
+        </div>
       </header>
 
-      {/* Treść artykułu */}
-      <div className="blog-article-wrapper">
-        <div
-          className="blog-article-content"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        ></div>
-
-        {/* Przycisk powrotu do bloga */}
-        <button
-          className="back-to-blog"
-          onClick={() => navigate("/blog")}
-        >
-          Powrót do artykułów
-        </button>
+      <div className="article-body">
+        {/* Renderowanie treści z podziałem na akapity */}
+        {post.content.split('\n').map((paragraph, index) => (
+          <p key={index}>{paragraph}</p>
+        ))}
+        
+        <div className="article-footer">
+          <Link to="/blog" className="blog-readmore">
+            &lt; Wróć do bloga
+          </Link>
+        </div>
       </div>
-    </div>
+    </article>
   );
 };
 
 export default BlogArticle;
-
-
-
-
-

@@ -1,6 +1,5 @@
 package org.example.petadoption.controller;
 
-
 import org.example.petadoption.model.Task;
 import org.example.petadoption.model.TaskRequest;
 import org.example.petadoption.model.TaskStatus;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -25,9 +23,7 @@ public class TaskController {
     private VolunteerRepository volunteerRepository;
 
     @GetMapping("/by-volunteer/{volunteerId}")
-    public ResponseEntity<List<Task>> getTasksByVolunteer(
-            @PathVariable Long volunteerId
-    ) {
+    public ResponseEntity<List<Task>> getTasksByVolunteer(@PathVariable Long volunteerId) {
         Volunteer volunteer = volunteerRepository.findById(volunteerId)
                 .orElseThrow(() -> new IllegalArgumentException("Volunteer not found"));
 
@@ -36,6 +32,7 @@ public class TaskController {
 
         return ResponseEntity.ok(tasks);
     }
+
     @PostMapping
     public ResponseEntity<Task> addTask(@RequestBody TaskRequest request) {
         if (request.getVolunteerId() == null) {
@@ -53,24 +50,41 @@ public class TaskController {
         task.setNote(request.getNote());
         task.setStatus(request.getStatus());
 
-        Task saved = taskRepository.save(task);
-        return ResponseEntity.ok(saved);
+        return ResponseEntity.ok(taskRepository.save(task));
     }
 
     @PutMapping("/cancel/{taskId}")
-    public ResponseEntity<Task> cancelTask(
-            @PathVariable Long taskId,
-            @RequestBody CancelRequest cancelRequest
-    ) {
+    public ResponseEntity<Task> cancelTask(@PathVariable Long taskId,
+                                           @RequestBody CancelRequest cancelRequest) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new IllegalArgumentException("Task not found"));
 
         task.setStatus(TaskStatus.CANCELLED);
         task.setCancellationReason(cancelRequest.getReason());
 
-        Task updatedTask = taskRepository.save(task);
-        return ResponseEntity.ok(updatedTask);
+        return ResponseEntity.ok(taskRepository.save(task));
     }
+
+    @PutMapping("/approve/{taskId}")
+    public ResponseEntity<Task> approveTask(@PathVariable Long taskId) {
+        Task task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new IllegalArgumentException("Task not found"));
+
+        task.setStatus(TaskStatus.APPROVED);
+
+        return ResponseEntity.ok(taskRepository.save(task));
+    }
+
+    @GetMapping("/approved")
+    public ResponseEntity<List<Task>> getApprovedTasks() {
+        return ResponseEntity.ok(taskRepository.findByStatus(TaskStatus.APPROVED));
+    }
+
+    @GetMapping("/pending")
+    public ResponseEntity<List<Task>> getPendingTasks() {
+        return ResponseEntity.ok(taskRepository.findByStatus(TaskStatus.PENDING));
+    }
+
     public static class CancelRequest {
         private String reason;
         public String getReason() { return reason; }

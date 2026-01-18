@@ -1,15 +1,16 @@
 import React from "react";
 import "./AdoptionAnimalCard.css";
 
-const AdoptionAnimalCard = ({ name, gender, age, size, shelterTime, img }) => {
+// Zmieniamy propsy na te, które przychodzą z bazy (ageYears, ageMonths itd.)
+const AdoptionAnimalCard = ({ name, gender, ageYears, ageMonths, size, img }) => {
   return (
     <div className="adoption-animal-card">
       <img src={img} alt={name} />
       <h3>{name}</h3>
       <div className="adoption-animal-card__info">
-        <span>Wiek: {age}</span>
+        {/* Wyświetlamy wiek na podstawie danych z bazy */}
+        <span>Wiek: {ageYears} lat, {ageMonths} msc</span>
         <span>Wielkość: {size}</span>
-        {shelterTime && <span>Czas w schronisku: {shelterTime}</span>}
         <span>Płeć: {gender}</span>
       </div>
     </div>
@@ -17,7 +18,3 @@ const AdoptionAnimalCard = ({ name, gender, age, size, shelterTime, img }) => {
 };
 
 export default AdoptionAnimalCard;
-
-
-
-

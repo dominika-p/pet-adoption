@@ -1,14 +1,14 @@
 package org.example.petadoption.controller;
 
-import org.example.petadoption.model.LoginRequest;
-import org.example.petadoption.model.UserResponse;
-import org.example.petadoption.model.Task;
-import org.example.petadoption.model.TaskStatus;
+import org.example.petadoption.model.*;
 import org.example.petadoption.repository.TaskRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -50,6 +50,25 @@ public class AdminController {
         task.setStatus(TaskStatus.APPROVED);
         Task updatedTask = taskRepository.save(task);
         return ResponseEntity.ok(updatedTask);
+    }
+
+    @GetMapping("/tasks/approved")
+    public ResponseEntity<List<Map<String,Object>>> getApprovedTasks() {
+        List<Task> tasks = taskRepository.findByStatus(TaskStatus.APPROVED);
+
+        List<Map<String,Object>> dto = tasks.stream().map(t -> {
+            Map<String,Object> map = new HashMap<>();
+            map.put("id", t.getId());
+            map.put("type", t.getType());
+            map.put("date", t.getDate().toString());
+            map.put("time", t.getTime().toString());
+            map.put("volunteerName", t.getVolunteerName());
+            map.put("volunteerPhone", t.getVolunteer() != null ? t.getVolunteer().getPhone() : "");
+            map.put("status", t.getStatus().name());
+            return map;
+        }).toList();
+
+        return ResponseEntity.ok(dto);
     }
 
 

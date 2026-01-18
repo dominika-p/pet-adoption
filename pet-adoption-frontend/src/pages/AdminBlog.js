@@ -1,40 +1,103 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './AdminBlog.css';
 
 const AdminBlog = () => {
   const [posts, setPosts] = useState([]);
-  const [newPost, setNewPost] = useState({
-    title: '',
-    content: '',
-    img: '',
-  });
+  const [newPost, setNewPost] = useState({ title: '', content: '' });
+  const [selectedFile, setSelectedFile] = useState(null);
 
-  // Dodaj nowy post
-  const addPost = () => {
-    if (!newPost.title || !newPost.img) return;
-    setPosts([{ ...newPost, id: Date.now(), isEditing: false }, ...posts]);
-    setNewPost({ title: '', content: '', img: '' });
+  // Pobieranie postów przy starcie
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/blog");
+      const data = await res.json();
+      setPosts(data.map(p => ({ ...p, isEditing: false })));
+    } catch (err) {
+      console.error("Błąd pobierania:", err);
+    }
   };
 
-  // Usuń post
-  const deletePost = (id) => setPosts(posts.filter((p) => p.id !== id));
+  // Dodawanie nowego posta ze zdjęciem
+  const addPost = async () => {
+    if (!newPost.title || !selectedFile) {
+      alert('Uzupełnij tytuł i wybierz zdjęcie');
+      return;
+    }
 
-  // Przełącz tryb edycji
-  const toggleEdit = (id) => {
-    setPosts(
-      posts.map((p) =>
-        p.id === id ? { ...p, isEditing: !p.isEditing } : p
-      )
-    );
+    const formData = new FormData();
+    formData.append("title", newPost.title);
+    formData.append("content", newPost.content);
+    formData.append("file", selectedFile);
+
+    try {
+      const res = await fetch("http://localhost:5000/api/blog", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        const savedPost = await res.json();
+        setPosts([{ ...savedPost, isEditing: false }, ...posts]);
+        setNewPost({ title: '', content: '' });
+        setSelectedFile(null);
+        alert("Post dodany!");
+      }
+    } catch (err) {
+      console.error("Błąd wysyłania:", err);
+    }
   };
 
-  // Zmiana pól podczas edycji
+  // USUWANIE
+  const deletePost = async (id) => {
+    if (!window.confirm("Usunąć post?")) return;
+    try {
+      await fetch(`http://localhost:5000/api/blog/${id}`, { method: "DELETE" });
+      setPosts(posts.filter(p => p.id !== id));
+    } catch (err) {
+      console.error("Błąd usuwania:", err);
+    }
+  };
+
+  // EDYCJA (Przełączanie i Zapis do bazy)
+  const handleEditClick = async (post) => {
+    if (post.isEditing) {
+      // Jeśli post był w trybie edycji, teraz go zapisujemy w bazie
+      try {
+        const response = await fetch(`http://localhost:5000/api/blog/${post.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: post.title,
+            content: post.content
+          }),
+        });
+
+        if (response.ok) {
+          console.log("Zaktualizowano pomyślnie");
+        } else {
+          alert("Błąd zapisu na serwerze");
+          return;
+        }
+      } catch (err) {
+        console.error("Błąd edycji:", err);
+        return;
+      }
+    }
+
+    // Przełączamy flagę isEditing lokalnie
+    setPosts(posts.map(p => 
+      p.id === post.id ? { ...p, isEditing: !p.isEditing } : p
+    ));
+  };
+
   const handleChange = (id, field, value) => {
-    setPosts(
-      posts.map((p) =>
-        p.id === id ? { ...p, [field]: value } : p
-      )
-    );
+    setPosts(posts.map(p => 
+      p.id === id ? { ...p, [field]: value } : p
+    ));
   };
 
   return (
@@ -55,18 +118,20 @@ const AdminBlog = () => {
         <input
           type="file"
           accept="image/*"
-          onChange={(e) =>
-            setNewPost({ ...newPost, img: URL.createObjectURL(e.target.files[0]) })
-          }
+          onChange={(e) => setSelectedFile(e.target.files[0])}
         />
         <button onClick={addPost}>Dodaj post</button>
       </div>
 
+      <hr />
       <h2>Lista postów</h2>
       <div className="blog-list">
         {posts.map((post) => (
           <div key={post.id} className="blog-item">
-            <img src={post.img} alt={post.title} />
+            <div className="blog-img-preview">
+              {post.img ? <img src={post.img} alt="Post" /> : <span>Brak foto</span>}
+            </div>
+
             <div className="blog-content">
               {post.isEditing ? (
                 <>
@@ -78,26 +143,20 @@ const AdminBlog = () => {
                     value={post.content}
                     onChange={(e) => handleChange(post.id, 'content', e.target.value)}
                   />
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleChange(post.id, 'img', URL.createObjectURL(e.target.files[0]))}
-                  />
                 </>
               ) : (
                 <>
                   <h4>{post.title}</h4>
-                  <p>{post.content.length > 200 ? post.content.substring(0, 200) + '...' : post.content}</p>
+                  <p>{post.content}</p>
                 </>
               )}
-              <div className="blog-buttons" style={{ justifyContent: 'flex-end' }}>
-                {post.isEditing ? (
-                  <button onClick={() => toggleEdit(post.id)}>Zapisz</button>
-                ) : (
-                  <>
-                    <button onClick={() => toggleEdit(post.id)}>Edytuj</button>
-                    <button onClick={() => deletePost(post.id)}>Usuń</button>
-                  </>
+
+              <div className="blog-buttons">
+                <button onClick={() => handleEditClick(post)}>
+                  {post.isEditing ? 'Zapisz' : 'Edytuj'}
+                </button>
+                {!post.isEditing && (
+                  <button onClick={() => deletePost(post.id)}>Usuń</button>
                 )}
               </div>
             </div>
@@ -109,5 +168,3 @@ const AdminBlog = () => {
 };
 
 export default AdminBlog;
-
-

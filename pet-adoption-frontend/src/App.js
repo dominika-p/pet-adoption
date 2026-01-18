@@ -37,7 +37,7 @@ function App() {
             <Route path='/adopcja' element={<AdoptionPage />} />
             <Route path='/adoption-contact/:animalName' element={<AdoptionContact />} />
             <Route path='/blog' element={<BlogPage />} />
-            <Route path='/blog/:slug' element={<BlogArticle />} />
+            <Route path='/blog/:id' element={<BlogArticle />} />
             <Route path='/kontakt' element={<Contact />} />
             <Route path='/o-nas' element={<AboutUs />} />
             <Route path='/help' element={<HelpPage />} />

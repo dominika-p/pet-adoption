@@ -1,54 +1,69 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./BlogSection.css";
 import { useNavigate } from "react-router-dom";
 
-const BlogSection = ({ posts }) => {
+const BlogSection = () => {
+  const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
-  // sortujemy od najnowszego do najstarszego
-  const sortedPosts = [...posts].sort(
-    (a, b) => new Date(b.dateAdded) - new Date(a.dateAdded)
-  );
+  // 1. Pobieranie postów z backendu
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/blog");
+        if (response.ok) {
+          const data = await response.json();
+          // Backend zazwyczaj zwraca już posortowane, ale dla pewności sortujemy po ID (nowsze mają wyższe ID)
+          const sorted = data.sort((a, b) => b.id - a.id);
+          setPosts(sorted);
+        }
+      } catch (error) {
+        console.error("Błąd pobierania wpisów na blogu:", error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
 
   const handleShowMorePosts = () => {
-    navigate("/blog"); // przekierowanie do strony z wszystkimi wpisami
+    navigate("/blog");
   };
 
   return (
     <section className="blog-section">
       <h3>Ostatnie wpisy na blogu</h3>
       <div className="blog-list">
-        {sortedPosts.slice(0, 4).map((post, i) => (
-          <div key={i} className="blog-card">
+        {/* Wyświetlamy tylko 4 najnowsze wpisy */}
+        {posts.slice(0, 4).map((post) => (
+          <div key={post.id} className="blog-card">
             <img src={post.img} alt={post.title} className="blog-img" />
             <div className="blog-content">
               <h4>{post.title}</h4>
-              <p>{post.excerpt}</p>
-              <a
-                href={post.link}  // link do artykułu
+              {/* Generujemy skrót treści (excerpt) z głównego pola content */}
+              <p>
+                {post.content.length > 100
+                  ? post.content.substring(0, 100) + "..."
+                  : post.content}
+              </p>
+              <button
                 className="read-more"
-                onClick={(e) => {
-                  e.preventDefault();       // nie przeładowuje strony
-                  navigate(post.link);      // dynamiczne przekierowanie
-                }}
+                style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'underline' }}
+                onClick={() => navigate(`/blog/${post.id}`)}
               >
                 Czytaj więcej
-              </a>
+              </button>
             </div>
           </div>
         ))}
       </div>
 
-      <button className="adopt-button" onClick={handleShowMorePosts}>
-        Zobacz więcej wpisów
-      </button>
+      {posts.length > 0 && (
+        <button className="adopt-button" onClick={handleShowMorePosts}>
+          Zobacz więcej wpisów
+        </button>
+      )}
     </section>
   );
 };
 
 export default BlogSection;
-
-
-
-
-

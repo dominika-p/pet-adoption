@@ -3,96 +3,113 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './AdminCalendar.css';
 
+console.log('ADMIN CALENDAR FILE LOADED');
+
 const AdminCalendar = () => {
   const [tasks, setTasks] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [selectedDate, setSelectedDate] = useState(() => {
+  const d = new Date();
+  d.setHours(12, 0, 0, 0);
+  return d;
+});
 
-  // Filtruj zadania zatwierdzone dla wybranego dnia
-  const tasksForDay = tasks.filter(t => t.date === selectedDate);
-
-  // Dodaje kropkę pod dniem z zadaniem
-  const tileContent = ({ date, view }) => {
-    if (view === 'month') {
-      const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
-      const dayTasks = tasks.filter(t => t.status === 'APPROVED' && t.date === formattedDate);
-      if (dayTasks.length > 0) return <div className="dot"></div>;
-    }
-    return null;
-  };
-
-  // Przykładowe zadania – w realnym projekcie pobierane z backendu
+  // --- Pobieranie zadań zatwierdzonych z backendu ---
   useEffect(() => {
-    const sampleTasks = [
-      {
-        id: 1,
-        type: 'Spacer z psem',
-        volunteer: { firstName: 'Jan', lastName: 'Kowalski', phone: '123456789' },
-        date: selectedDate,
-        time: '10:00',
-        status: 'APPROVED',
-        cancellationReason: '',
-      },
-      {
-        id: 2,
-        type: 'Karmienie kotów',
-        volunteer: { firstName: 'Anna', lastName: 'Nowak', phone: '987654321' },
-        date: selectedDate,
-        time: '12:00',
-        status: 'APPROVED',
-        cancellationReason: '',
-      },
-    ];
-    setTasks(sampleTasks);
-  }, [selectedDate]);
+    fetch('http://localhost:5000/api/admin/tasks/approved')
+      .then(res => res.json())
+      .then(data => {
+        console.log('DANE Z API:', data);
+        if (Array.isArray(data)) {
+          setTasks(data);
+        } else {
+          setTasks([]);
+        }
+      })
+      .catch(err => console.error('Błąd pobierania zadań:', err));
+  }, []);
 
+  // --- Funkcja konwertująca Date do YYYY-MM-DD ---
+  const formatDateToString = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2,'0');
+  const day = String(date.getDate()).padStart(2,'0');
+  return `${year}-${month}-${day}`;
+};
+
+  // --- Zawartość kafelka kalendarza z kropeczką jeśli jest zadanie ---
+  const tileContent = ({ date, view }) => {
+  if (view !== 'month') return null;
+
+  const dStr = formatDateToString(date);
+
+  const hasTask = tasks.some(t => 
+    t.status === 'APPROVED' && t.date === dStr
+  );
+
+  return hasTask ? <div className="dot" /> : null;
+};
+
+
+
+  // --- Filtr zadań dla wybranego dnia ---
+  const selectedDateStr = formatDateToString(selectedDate);
+
+const tasksForDay = tasks.filter(t =>
+  t.status === 'APPROVED' && t.date === selectedDateStr
+);
+
+
+  // --- Anulowanie zadania ---
   const handleDeleteTask = (taskId) => {
-    const reason = prompt('Podaj powód anulowania zadania:');
-    if (!reason) return alert('Anulowanie wymaga podania powodu!');
+    const reason = prompt('Podaj powód anulowania zadania');
+    if (!reason) return;
 
-    setTasks(prev =>
-      prev.map(t =>
-        t.id === taskId ? { ...t, status: 'CANCELLED', cancellationReason: reason } : t
-      )
-    );
-    alert('Zadanie zostało anulowane i użytkownik zostanie o tym poinformowany.');
+    fetch(`http://localhost:5000/api/tasks/cancel/${taskId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ reason }),
+    })
+      .then(res => res.json())
+      .then(updated => {
+        setTasks(prev => prev.map(t => (t.id === taskId ? updated : t)));
+      })
+      .catch(err => console.error(err));
   };
+
 
   return (
     <div className="admin-section calendar-container">
       <h2>Kalendarz wolontariatu</h2>
-      <div className="calendar-tasks-wrapper">
-        <Calendar
-          onChange={(date) =>
-            setSelectedDate(
-              `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`
-            )
-          }
-          value={new Date(selectedDate)}
-          locale="pl-PL"
-          tileContent={tileContent}
-          className="custom-calendar"
-        />
 
+      <div className="calendar-tasks-wrapper">
+        {/* Kalendarz */}
+        <Calendar
+  onClickDay={(date) => {
+    console.log('Kliknięto dzień:', date);
+    setSelectedDate(date);
+  }}
+  tileContent={tileContent}
+  value={selectedDate}
+/>
+
+
+        {/* Lista zadań dla wybranego dnia */}
         <div className="calendar-task-list">
-          {tasksForDay.length > 0 ? (
-            tasksForDay.map(t => (
-              <div key={t.id} className={`calendar-task ${t.status === 'CANCELLED' ? 'cancelled' : ''}`}>
-                <strong>{t.type}</strong>
-                <div>
-                  {t.volunteer.firstName} {t.volunteer.lastName}
-                </div>
-                <div>📞 {t.volunteer.phone}</div>
-                <div>🕒 {t.time}</div>
-                {t.status === 'APPROVED' && (
-                  <button onClick={() => handleDeleteTask(t.id)}>Usuń</button>
-                )}
-                {t.status === 'CANCELLED' && (
-                  <p className="cancel-reason">Anulowano: {t.cancellationReason}</p>
-                )}
-              </div>
-            ))
-          ) : (
+          {tasksForDay.length === 0 ? (
             <p>Brak zadań</p>
+          ) : (
+            tasksForDay.map(t => {
+              const volunteerDisplay = t.volunteerName || 'Nieznany wolontariusz';
+              return (
+                <div key={t.id} className="calendar-task">
+                  <strong>{t.type}</strong>
+                  <div>{volunteerDisplay}</div>
+                  <div>🕒 {t.time.substring(0,5)}</div>
+                  <div>📞 {t.volunteerPhone || '-'}</div>
+                  <button onClick={() => handleDeleteTask(t.id)}>Usuń</button>
+                </div>
+              );
+            })
           )}
         </div>
       </div>
@@ -100,6 +117,9 @@ const AdminCalendar = () => {
   );
 };
 
-export default AdminCalendar;
+window.addEventListener('click', () => {
+  console.log('GLOBAL CLICK');
+});
 
+export default AdminCalendar;
 

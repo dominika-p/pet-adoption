@@ -1,14 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react"; // Dodano useState i useEffect
 import HeroSection from "../components/HeroSection";
 import BlogSection from "../components/BlogSection";
 import AnimalList from "../components/AnimalList";
 import Footer from "../components/Footer";
 import posts from "../data/postsData";
-import animalsData from "../data/animalsData";
 import "./Home.css";
 
 const Home = () => {
-  const latestAnimals = animalsData.slice(-4).reverse();
+  const [latestAnimals, setLatestAnimals] = useState([]); // Stan na zwierzaki z bazy
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLatestAnimals = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("http://localhost:5000/api/animals");
+        if (response.ok) {
+          const data = await response.json();
+          // Pobieramy 4 ostatnio dodane zwierzaki (zakładając, że ID rośnie lub sortujemy datą)
+          // .slice(-4) bierze 4 ostatnie elementy, .reverse() daje najnowsze na początku
+          const lastFour = data.slice(-4).reverse();
+          setLatestAnimals(lastFour);
+        }
+      } catch (error) {
+        console.error("Błąd podczas pobierania najnowszych zwierzaków:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLatestAnimals();
+  }, []);
 
   return (
     <>
@@ -51,7 +73,13 @@ const Home = () => {
       <section className="adoption-section">
         <div className="page-wrapper">
           <h3>Ostatnio dodane zwierzaki do adopcji</h3>
-          <AnimalList animals={latestAnimals} />
+          {loading ? (
+            <p style={{ textAlign: 'center' }}>Ładowanie zwierzaków...</p>
+          ) : latestAnimals.length > 0 ? (
+            <AnimalList animals={latestAnimals} />
+          ) : (
+            <p style={{ textAlign: 'center' }}>Brak zwierzaków do wyświetlenia.</p>
+          )}
         </div>
       </section>
 
@@ -69,13 +97,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
-
-
-
-
-
-
-
-

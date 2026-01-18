@@ -22,36 +22,54 @@ const VolunteeringDashboard = () => {
   const [newTask, setNewTask] = useState({ type: '', date: todayStr, time: '10:00', note: '' });
   const [profile, setProfile] = useState(null);
 
-  const savedUser = JSON.parse(localStorage.getItem("user") || '{}');
   const { user } = useContext(UserContext);
 
-  // --- Pobieranie profilu użytkownika ---
+  // --- Pobieranie profilu wolontariusza (bez zadań) ---
   useEffect(() => {
-    if (!savedUser?.id) return;
+    if (!user?.id) {
+      setProfile(null); 
+      return;
+    }
+
+    let isMounted = true;
+
     const loadProfile = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/volunteers/${savedUser.id}`);
-        setProfile(res.data);
+        console.log("Ładuję profil dla user id:", user.id);
+        const res = await axios.get(`http://localhost:5000/api/volunteers/${user.id}`);
+        if (isMounted) {
+          // zapisujemy tylko podstawowe dane, odcinając tasks
+          const { tasks, password, ...profileData } = res.data;
+          setProfile(profileData);
+        }
       } catch (err) {
         console.error("Błąd pobierania profilu:", err);
       }
     };
-    loadProfile();
-  }, [savedUser]);
 
+    loadProfile();
+
+    return () => {
+      isMounted = false; 
+    };
+  }, [user?.id]);
+
+  // --- Pobieranie zadań ---
   const fetchTasks = useCallback(async (date) => {
-  if (!user?.id) return;
-  try {
-    const res = await axios.get(`http://localhost:5000/api/tasks/by-volunteer/${user.id}?date=${date}`);
-    setTasks(res.data);
-  } catch (err) {
-    console.error("Błąd pobierania zadań:", err);
-  }
-}, [user]);
+    if (!user?.id) return;
+    try {
+      const res = await axios.get(`http://localhost:5000/api/tasks/by-volunteer/${user.id}?date=${date}`);
+      setTasks(res.data);
+    } catch (err) {
+      console.error("Błąd pobierania zadań:", err);
+    }
+  }, [user?.id]);
 
   useEffect(() => {
-    fetchTasks(selectedDate);
-  }, [selectedDate, fetchTasks]);
+  if (tasks.length > 0) {
+    console.log("Pobrane zadania dla dnia", selectedDate, tasks);
+  }
+}, [tasks, selectedDate]);
 
   // --- Dodawanie zadania ---
   const addTask = async () => {
@@ -90,15 +108,11 @@ const VolunteeringDashboard = () => {
     }
   };
 
-  // --- Filtrowanie zadań po dacie ---
- const tasksForDay = tasks.filter(t => {
-  console.log("Task:", t.date, t.status); // <--- sprawdź co przychodzi
-  const taskDate = t.date.split('T')[0];
-  return (
-    (t.status === "PENDING" || t.status === "APPROVED" || t.status === "CANCELLED") &&
-    taskDate === selectedDate
-  );
-});
+  // --- Filtrowanie zadań po wybranej dacie ---
+  const tasksForDay = tasks.filter(t => {
+    const taskDate = t.date.split('T')[0];
+    return (['PENDING', 'APPROVED', 'CANCELLED'].includes(t.status) && taskDate === selectedDate);
+  });
 
   const formatDate = dateStr => {
     const [year, month, day] = dateStr.split('-').map(Number);
@@ -146,23 +160,6 @@ const VolunteeringDashboard = () => {
         <div className='task-box'>
           <div className='task-header'>Lista zadań</div>
           <div className='task-date'>{formatDate(selectedDate)}</div>
-          {tasksForDay.length > 0 ? tasksForDay.map(task => (
-  <div key={task.id} className={`task-item ${task.status.toLowerCase()}`}>
-    <div className='task-main-row'>
-      <div className='task-info'>
-        <strong>{task.type}</strong> — {task.time.substring(0,5)}
-        {task.status === 'PENDING' && <span className='pending-label'> (Oczekujące)</span>}
-        {task.status === 'APPROVED' && <span className='approved-label'> (Zatwierdzone ✔)</span>}
-        {task.status === 'CANCELLED' && <span className='cancelled-label'> (Anulowane)</span>}
-      </div>
-      {task.status !== 'CANCELLED' && (
-        <button onClick={() => cancelTask(task.id)} className='cancel-btn'>Usuń</button>
-      )}
-    </div>
-    {task.note && <div className='task-note'><em>Notatka:</em> {task.note}</div>}
-    {task.cancellationReason && <div className='task-note'><em>Powód anulowania:</em> {task.cancellationReason}</div>}
-  </div>
-)) : <div>Brak zadań na ten dzień</div>}
         </div>
 
         <div className='add-task-box'>

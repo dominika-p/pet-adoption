@@ -11,28 +11,29 @@ const VolunteeringLogin = () => {
   const { setUser } = useContext(UserContext); // <- pobieramy setter z contextu
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:5000/api/volunteers/login", {
-        email,
-        password
-      });
+  e.preventDefault();
+  try {
+    const response = await axios.post("http://localhost:5000/api/volunteers/login", {
+      email,
+      password
+    });
 
-      const loggedUser = response.data;
-      console.log("Zalogowany użytkownik:", loggedUser);
+    const loggedUser = response.data;
+    console.log("Zalogowany użytkownik:", loggedUser);
 
-      if (!loggedUser.id) {
-        return alert("Backend nie zwraca id użytkownika!");
-      }
-
-      // zapisujemy zarówno w localStorage, jak i w context
-      localStorage.setItem("volunteer", JSON.stringify(loggedUser));
-      setUser(loggedUser); // <- tutaj aktualizujemy context, Header od razu się przeładuje
-      navigate("/volunteer-dashboard");
-    } catch (err) {
-      alert("Błędny email lub hasło");
+    if (!loggedUser.id) {
+      return alert("Backend nie zwraca id użytkownika!");
     }
-  };
+
+    localStorage.removeItem("volunteer"); // usuń stare dane
+    localStorage.setItem("volunteer", JSON.stringify(loggedUser)); // zapisz nowe
+    setUser(loggedUser); // aktualizuje context od razu
+    navigate("/volunteer-dashboard");
+
+  } catch (err) {
+    alert("Błędny email lub hasło");
+  }
+};
 
   return (
     <div

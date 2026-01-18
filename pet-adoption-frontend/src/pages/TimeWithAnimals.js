@@ -26,19 +26,46 @@ const TimeWithAnimals = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Wysłano zgłoszenie:", formData);
-    setSubmitted(true);
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      activity: "",
-      date: "",
-      hour: "",
-      message: "",
-    });
+
+    const activityLabels = {
+      spacer: "Spacer z psem",
+      zabawa: "Zabawa z kotem",
+      sprzatanie: "Sprzątanie boksów",
+      inne: "Inne"
+    };
+
+    try {
+      const response = await fetch("http://localhost:5000/api/contact/time-with-animals", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          activity: activityLabels[formData.activity] || formData.activity
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          activity: "",
+          date: "",
+          hour: "",
+          message: "",
+        });
+      } else {
+        alert("Wystąpił błąd podczas wysyłania zgłoszenia.");
+      }
+    } catch (error) {
+      console.error("Błąd sieci:", error);
+      alert("Błąd połączenia z serwerem.");
+    }
   };
 
   // Generowanie godzin 10:00–18:00 co 30 minut

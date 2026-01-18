@@ -12,6 +12,8 @@ const AnimalForm = () => {
     setSpecies("Pies");
   };
 
+  console.log("DEBUG: AnimalForm render")
+
   return (
     <form onSubmit={handleSubmit} style={{ marginBottom: "30px" }}>
       <input

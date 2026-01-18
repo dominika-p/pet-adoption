@@ -68,7 +68,9 @@
   background-color: #e78c58; 
   border-radius: 50%;
   margin: 2px auto 0;
+  pointer-events: none; 
 }
+
 
 /* Lista zadań pod kalendarzem */
 .calendar-task-list {

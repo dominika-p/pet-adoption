@@ -1,6 +1,7 @@
 package org.example.petadoption.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
@@ -26,10 +27,12 @@ public class Task {
     private String type;
 
     // Data zadania
-    @Column(nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(nullable = false, columnDefinition = "DATE")
     private LocalDate date;
 
     // Godzina np. 10:00, 11:00
+    @JsonFormat(pattern = "HH:mm")
     @Column(nullable = false)
     private LocalTime time;
 

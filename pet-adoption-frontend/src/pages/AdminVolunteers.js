@@ -1,66 +1,66 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './AdminVolunteers.css';
 
 const AdminVolunteers = () => {
-  // Przykładowe zadania wolontariuszy
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      volunteer: 'Jan Kowalski',
-      type: 'Spacer z psem',
-      date: '2025-12-22',
-      time: '10:00',
-      status: 'PENDING',
-    },
-    {
-      id: 2,
-      volunteer: 'Anna Nowak',
-      type: 'Karmienie kotów',
-      date: '2025-12-22',
-      time: '12:00',
-      status: 'PENDING',
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
 
-  // Akceptacja zadania
+  // 🔹 Pobieranie PENDING zadań
+  useEffect(() => {
+    fetch('http://localhost:5000/api/tasks/pending')
+      .then(res => res.json())
+      .then(data => setTasks(data))
+      .catch(err => console.error(err));
+  }, []);
+
+  // ✅ Akceptacja
   const handleAcceptTask = (taskId) => {
-    setTasks((prev) =>
-      prev.map((t) => (t.id === taskId ? { ...t, status: 'APPROVED' } : t))
-    );
+    fetch(`http://localhost:5000/api/tasks/approve/${taskId}`, {
+      method: 'PUT',
+    })
+      .then(res => res.json())
+      .then(updated => {
+        setTasks(prev => prev.filter(t => t.id !== taskId));
+      })
+      .catch(err => console.error(err));
   };
 
-  // Odrzucenie zadania
+  // ❌ Odrzucenie
   const handleRejectTask = (taskId) => {
-    const reason = prompt('Podaj powód odrzucenia:') || 'Brak powodu';
-    setTasks((prev) =>
-      prev.map((t) =>
-        t.id === taskId ? { ...t, status: 'CANCELLED', cancellationReason: reason } : t
-      )
-    );
-  };
+    const reason = prompt('Podaj powód odrzucenia');
+    if (!reason) return;
 
-  const pendingTasks = tasks.filter((t) => t.status === 'PENDING');
+    fetch(`http://localhost:5000/api/tasks/cancel/${taskId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ reason }),
+    })
+      .then(res => res.json())
+      .then(() => {
+        setTasks(prev => prev.filter(t => t.id !== taskId));
+      })
+      .catch(err => console.error(err));
+  };
 
   return (
     <div className="admin-section">
-      <h2>Wolontariusze</h2>
-      <div className="pending-tasks">
-        <h3>Zadania oczekujące na akceptację</h3>
-        {pendingTasks.length === 0 && <p>Brak zadań oczekujących</p>}
+      <h2>Wolontariusze – zadania oczekujące</h2>
 
-        {pendingTasks.map((task) => (
-          <div key={task.id} className="task-item">
-            <p>Wolontariusz: {task.volunteer}</p>
-            <p>Typ zadania: {task.type}</p>
-            <p>Data: {task.date}</p>
-            <p>Godzina: {task.time}</p>
-            <div className="task-buttons">
-              <button onClick={() => handleAcceptTask(task.id)}>Akceptuj</button>
-              <button onClick={() => handleRejectTask(task.id)}>Odrzuć</button>
-            </div>
+      {tasks.length === 0 && <p>Brak zadań</p>}
+
+      {tasks.map(task => (
+        <div key={task.id} className="task-item">
+          <p><strong>Wolontariusz:</strong> {task.volunteerName || 'Nieznany wolontariusz'}</p>
+          <p><strong>Telefon:</strong> {task.volunteerPhone || '-'}</p>
+          <p><strong>Typ:</strong> {task.type}</p>
+          <p><strong>Data:</strong> {task.date}</p>
+          <p><strong>Godzina:</strong> {task.time}</p>
+
+          <div className="task-buttons">
+            <button onClick={() => handleAcceptTask(task.id)}>Akceptuj</button>
+            <button onClick={() => handleRejectTask(task.id)}>Odrzuć</button>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 };

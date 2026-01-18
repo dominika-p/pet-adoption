@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-// DODAJEMY TE IMPORTY
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -49,7 +47,7 @@ public class VolunteerController {
     public ResponseEntity<Volunteer> getVolunteerProfile(@PathVariable Long id) {
         return volunteerRepository.findById(id)
                 .map(volunteer -> {
-                    volunteer.setPassword(null); // nie wysyłamy hasła
+                    volunteer.setPassword(null);
                     return ResponseEntity.ok(volunteer);
                 })
                 .orElse(ResponseEntity.notFound().build());

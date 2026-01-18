@@ -1,48 +1,56 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './AdminMessages.css';
 
 const AdminMessages = () => {
-  // Przykładowe wiadomości
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      name: 'Anna Kowalska',
-      email: 'anna@example.com',
-      message: 'Chciałabym dowiedzieć się więcej o adopcji psa.',
-      answered: false,
-      reply: '',
-      replyText: '',
-    },
-    {
-      id: 2,
-      name: 'Piotr Nowak',
-      email: 'piotr@example.com',
-      message: 'Czy można przyjść w weekend i pomóc w wolontariacie?',
-      answered: false,
-      reply: '',
-      replyText: '',
-    },
-  ]);
+  const [messages, setMessages] = useState([]);
 
-  // Usuń wiadomość
-  const deleteMessage = (id) =>
-    setMessages(messages.filter((msg) => msg.id !== id));
+  
+  useEffect(() => {
+    fetch("http://localhost:5000/api/contact/all")
+      .then(res => res.json())
+      .then(data => {
+        
+        const messagesWithReply = data.map(msg => ({ ...msg, replyText: '' }));
+        setMessages(messagesWithReply);
+      })
+      .catch(err => console.error("Błąd pobierania wiadomości:", err));
+  }, []);
 
-  // Wyślij odpowiedź
-  const sendReply = (id, replyText) => {
-    if (!replyText.trim()) return;
-    setMessages(prev =>
-      prev.map(msg =>
-        msg.id === id
-          ? { ...msg, answered: true, reply: replyText, replyText: '' }
-          : msg
-      )
-    );
+ 
+  const deleteMessage = (id) => {
+    fetch(`http://localhost:5000/api/contact/${id}`, { method: 'DELETE' })
+      .then(() => setMessages(prev => prev.filter(msg => msg.id !== id)))
+      .catch(err => console.error("Błąd usuwania:", err));
   };
 
-  // Sortujemy wiadomości: najpierw nieodpowiedziane
+
+  // Wysyłanie odpowiedzi (PATCH + automatyczny mail)
+  const sendReply = (id, replyText) => {
+    if (!replyText.trim()) return alert("Wpisz treść odpowiedzi!");
+
+    fetch(`http://localhost:5000/api/contact/${id}/reply`, {
+      method: 'PATCH',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reply: replyText }) 
+    })
+      .then(res => {
+        if (!res.ok) throw new Error("Błąd przy wysyłaniu odpowiedzi");
+        return res.json();
+      })
+      .then(updatedMsg => {
+      
+        setMessages(prev =>
+          prev.map(msg =>
+            msg.id === id ? { ...updatedMsg, replyText: '' } : msg
+          )
+        );
+      })
+      .catch(err => console.error(err));
+  };
+
+
   const sortedMessages = [...messages].sort((a, b) =>
-    a.answered === b.answered ? 0 : a.answered ? 1 : -1
+    (!!a.reply === !!b.reply) ? 0 : (!!a.reply ? 1 : -1)
   );
 
   return (
@@ -54,11 +62,11 @@ const AdminMessages = () => {
         {sortedMessages.map((msg) => (
           <div key={msg.id} className="message-item">
             <div className="message-header">
-              <strong>{msg.name}</strong> - <em>{msg.email}</em>
+              <strong>{msg.name || "Nieznany"}</strong> - <em>{msg.email || "Brak e-mail"}</em>
             </div>
             <p>{msg.message}</p>
 
-            {!msg.answered ? (
+            {!msg.reply ? (
               <>
                 <textarea
                   placeholder="Napisz odpowiedź..."
@@ -90,5 +98,3 @@ const AdminMessages = () => {
 };
 
 export default AdminMessages;
-
-

@@ -26,50 +26,59 @@ const VolunteeringDashboard = () => {
 
   // --- Pobieranie profilu wolontariusza (bez zadań) ---
   useEffect(() => {
-    if (!user?.id) {
-      setProfile(null); 
-      return;
-    }
+  if (!user?.id) {
+    setProfile(null);
+    return;
+  }
 
-    let isMounted = true;
+  let isMounted = true;
 
-    const loadProfile = async () => {
-      try {
-        console.log("Ładuję profil dla user id:", user.id);
-        const res = await axios.get(`http://localhost:5000/api/volunteers/${user.id}`);
-        if (isMounted) {
-          // zapisujemy tylko podstawowe dane, odcinając tasks
-          const { tasks, password, ...profileData } = res.data;
-          setProfile(profileData);
-        }
-      } catch (err) {
-        console.error("Błąd pobierania profilu:", err);
+  const loadProfile = async () => {
+    try {
+      console.log("Ładuję profil dla user id:", user.id);
+      const res = await axios.get(
+        `http://localhost:5000/api/volunteers/${user.id}`
+      );
+
+      if (isMounted) {
+        const { tasks, password, ...profileData } = res.data;
+        setProfile(profileData);
       }
-    };
+    } catch (err) {
+      console.error("Błąd pobierania profilu:", err);
+    }
+  };
 
-    loadProfile();
+  loadProfile();
 
-    return () => {
-      isMounted = false; 
-    };
-  }, [user?.id]);
+  return () => {
+    isMounted = false;
+  };
+}, [user?.id]);
+
 
   // --- Pobieranie zadań ---
-  const fetchTasks = useCallback(async (date) => {
-    if (!user?.id) return;
+  const fetchTasks = useCallback(
+  async (date) => {
+    if (!user?.id || !date) return;
+
     try {
-      const res = await axios.get(`http://localhost:5000/api/tasks/by-volunteer/${user.id}?date=${date}`);
+      const res = await axios.get(
+        `http://localhost:5000/api/tasks/by-volunteer/${user.id}?date=${date}`
+      );
       setTasks(res.data);
     } catch (err) {
       console.error("Błąd pobierania zadań:", err);
     }
-  }, [user?.id]);
+  },
+  [user?.id]
+);
 
-  useEffect(() => {
-  if (tasks.length > 0) {
-    console.log("Pobrane zadania dla dnia", selectedDate, tasks);
+useEffect(() => {
+  if (user?.id && selectedDate) {
+    fetchTasks(selectedDate);
   }
-}, [tasks, selectedDate]);
+}, [user?.id, selectedDate, fetchTasks]);
 
   // --- Dodawanie zadania ---
   const addTask = async () => {
@@ -158,9 +167,39 @@ const VolunteeringDashboard = () => {
         </div>
 
         <div className='task-box'>
-          <div className='task-header'>Lista zadań</div>
-          <div className='task-date'>{formatDate(selectedDate)}</div>
+  <div className='task-header'>Lista zadań</div>
+  <div className='task-date'>{formatDate(selectedDate)}</div>
+
+  <div className="task-list">
+    {tasksForDay.length === 0 && (
+      <p className="no-tasks">Brak zadań na ten dzień</p>
+    )}
+
+    {tasksForDay.map(task => (
+      <div key={task.id} className={`task-item ${task.status.toLowerCase()}`}>
+        <div className="task-main">
+          <span className="task-time">{task.time.slice(0,5)}</span> {' '}
+          <span className="task-type">{task.type}</span>
         </div>
+
+        {task.note && (
+          <div className="task-note">{task.note}</div>
+        )}
+
+        <div className="task-status">
+          {task.status === 'PENDING' && '⏳ Oczekujące'}
+          {task.status === 'APPROVED' && '✅ Zatwierdzone'}
+          {task.status === 'CANCELLED' && '❌ Odrzucone'}
+        </div>
+
+        {task.status === 'PENDING' && (
+          <button className="cancel-btn" onClick={() => cancelTask(task.id)}>Anuluj</button>
+        )}
+      </div>
+    ))}
+  </div>
+</div>
+
 
         <div className='add-task-box'>
           <div className='add-task-header'>Dodaj aktywność</div>

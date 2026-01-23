@@ -130,4 +130,31 @@ public class ContactController {
 
         return msg;
     }
+
+    @PostMapping("/send-message")
+    public ResponseEntity<?> sendContactMessage(@RequestBody Map<String, Object> data) {
+        try {
+            String myEmail = "kontaktadoptujprzyjaciela@gmail.com";
+
+            String subject = (String) data.get("subject");
+            String content = String.format(
+                    "Otrzymano nową wiadomość kontaktową:\n\n" +
+                            "Email nadawcy: %s\n" +
+                            "Sprawa: %s\n" +
+                            "Temat: %s\n" +
+                            "Treść: %s\n",
+                    data.get("email"),
+                    data.get("issue"),
+                    data.get("subject"),
+                    data.get("message")
+            );
+
+            emailService.sendEmail(myEmail, subject, content);
+
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Błąd podczas wysyłania: " + e.getMessage());
+        }
+    }
+
 }

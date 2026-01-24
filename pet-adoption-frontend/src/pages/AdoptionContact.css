@@ -1,165 +1,157 @@
 .adoption-container {
-  position: relative;
-  min-height: 100vh;
-  padding: 40px 8%;
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  color: #5a5a5a;
+	position: relative;
+	min-height: 100vh;
+	padding: 40px 8%;
+	font-family: 'Poppins', sans-serif;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	color: #5a5a5a;
 }
 
 .adoption-bg {
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0,0,0,0.35);
-  z-index: -1;
+	position: absolute;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.35);
+	z-index: -1;
 }
 
 .adoption-header {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #fff;
+	text-align: center;
+	margin-bottom: 30px;
+	color: #fff;
 }
 
 .adoption-header h1 {
-  font-size: 2.1rem;
-  margin-bottom: 8px;
+	font-size: 2.1rem;
+	margin-bottom: 8px;
 }
 
 .adoption-header p {
-  font-size: 1rem;
-  color: #eee;
+	font-size: 1rem;
+	color: #eee;
 }
 
 .adoption-content {
-  display: flex;
-  justify-content: space-between;
-  gap: 30px;
-  flex-wrap: nowrap;
+	display: flex;
+	justify-content: space-between;
+	gap: 30px;
+	flex-wrap: nowrap;
 }
 
-/* LEWA KOLUMNA */
 .adoption-info {
-  flex: 1 1 45%;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+	flex: 1 1 45%;
+	background: rgba(255, 255, 255, 0.95);
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
 }
 
 .adoption-info h2 {
-  color: #ae5224;
-  margin-bottom: 12px;
-  font-size: 1.3rem;
+	color: #ae5224;
+	margin-bottom: 12px;
+	font-size: 1.3rem;
 }
 
 .adoption-info ul {
-  list-style: inside disc;
-  line-height: 1.5;
-  color: #555;
-  font-size: 0.95rem;
+	list-style: inside disc;
+	line-height: 1.5;
+	color: #555;
+	font-size: 0.95rem;
 }
 
-/* PRAWA KOLUMNA */
 .adoption-form {
-  flex: 1 1 40%; /* węższa kolumna */
-  background: rgba(255, 255, 255, 0.95);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+	flex: 1 1 40%;
+	background: rgba(255, 255, 255, 0.95);
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
 }
 
 .adoption-form h2 {
-  color: #ae5224;
-  margin-bottom: 12px;
-  font-size: 1.3rem;
+	color: #ae5224;
+	margin-bottom: 12px;
+	font-size: 1.3rem;
 }
 
 .adoption-form form {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .adoption-form label {
-  margin-top: 8px;
-  margin-bottom: 4px;
-  font-weight: 600;
-  font-size: 0.9rem;
+	margin-top: 8px;
+	margin-bottom: 4px;
+	font-weight: 600;
+	font-size: 0.9rem;
 }
 
 .adoption-form input,
 .adoption-form textarea,
 .adoption-form select {
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-family: inherit;
-  font-size: 0.9rem;
+	padding: 8px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	font-family: inherit;
+	font-size: 0.9rem;
 }
 
 .adoption-form textarea {
-  min-height: 70px;
+	min-height: 70px;
 }
 
 .consent-label {
-  margin-top: 10px;
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+	margin-top: 10px;
+	font-size: 0.85rem;
+	display: flex;
+	align-items: center;
+	gap: 5px;
 }
 
 .adoption-form button {
-  margin-top: 15px;
-  background-color: #ae5224;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  transition: 0.3s ease;
+	margin-top: 15px;
+	background-color: #ae5224;
+	color: #fff;
+	border: none;
+	padding: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 0.95rem;
+	transition: 0.3s ease;
 }
 
 .adoption-form button:hover {
-  background-color: #e78c58;
+	background-color: #e78c58;
 }
 
 .form-success {
-  padding: 16px;
-  font-size: 0.95rem;
-  background-color: #e8f6ec;
-  border-left: 4px solid #3d593b;
-  border-radius: 6px;
-  text-align: center;
-  font-weight: 600;
-  color: #2d593b;
+	padding: 16px;
+	font-size: 0.95rem;
+	background-color: #e8f6ec;
+	border-left: 4px solid #3d593b;
+	border-radius: 6px;
+	text-align: center;
+	font-weight: 600;
+	color: #2d593b;
 }
 
-/* RESPONSYWNOŚĆ */
 @media (max-width: 768px) {
-  .adoption-content {
-    flex-direction: column;
-    gap: 20px;
-  }
+	.adoption-content {
+		flex-direction: column;
+		gap: 20px;
+	}
 }
 
 @media (max-width: 576px) {
-  .adoption-container {
-    padding: 25px 4%;
-  }
+	.adoption-container {
+		padding: 25px 4%;
+	}
 
-  .adoption-header h1 {
-    font-size: 1.8rem;
-  }
+	.adoption-header h1 {
+		font-size: 1.8rem;
+	}
 
-  .adoption-header p {
-    font-size: 0.95rem;
-  }
+	.adoption-header p {
+		font-size: 0.95rem;
+	}
 }
-
-
-
-
-

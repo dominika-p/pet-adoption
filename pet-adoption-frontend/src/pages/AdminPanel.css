@@ -1,107 +1,102 @@
 /* Ogólny kontener strony admina */
 .admin-page {
-  min-height: 100vh;
-  padding: 20px;
-  font-family: 'Poppins', sans-serif;
-  color: #4a3f35;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+	min-height: 100vh;
+	padding: 20px;
+	font-family: 'Poppins', sans-serif;
+	color: #4a3f35;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
 
-  position: relative;
+	position: relative;
 }
 
 /* Panel z sidebar i treścią */
 .admin-panel-container {
-  display: flex;
-  width: 100%;
-  max-width: 1200px;
-  background-color: rgba(252, 230, 214, 0.95);
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-  overflow: hidden;
+	display: flex;
+	width: 100%;
+	max-width: 1200px;
+	background-color: rgba(252, 230, 214, 0.95);
+	border-radius: 15px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+	overflow: hidden;
 
-  position: relative;
-  z-index: 2;
+	position: relative;
+	z-index: 2;
 }
-
 
 /* Sidebar */
 .admin-sidebar {
-  width: 250px;
-  background-color: rgba(252, 230, 214, 0.95);
-  padding: 25px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  border-right: 1px solid #d2bfa3;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
+	width: 250px;
+	background-color: rgba(252, 230, 214, 0.95);
+	padding: 25px 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	border-right: 1px solid #d2bfa3;
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
 }
 
 .admin-sidebar h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #ae5224;
-  text-align: center;
-  margin-bottom: 20px;
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #ae5224;
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 .admin-sidebar button {
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  background: transparent;
-  transition: 0.2s;
-  text-align: left;
-  white-space: nowrap;
+	padding: 12px;
+	border: none;
+	border-radius: 10px;
+	font-weight: 600;
+	cursor: pointer;
+	background: transparent;
+	transition: 0.2s;
+	text-align: left;
+	white-space: nowrap;
 }
 
 .admin-sidebar button.active,
 .admin-sidebar button:hover {
-  background-color: #e78c58;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+	background-color: #e78c58;
+	color: #fff;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Główna część panelu */
 .admin-main {
-  flex: 1;
-  padding: 25px;
-  overflow-y: auto;
+	flex: 1;
+	padding: 25px;
+	overflow-y: auto;
 }
 
-/* Sekcje w admin-main */
 .admin-section h2 {
-  color: #ae5224;
-  margin-bottom: 15px;
+	color: #ae5224;
+	margin-bottom: 15px;
 }
 
-/* Responsive */
-@media(max-width: 900px) {
-  .admin-panel-container {
-    flex-direction: column;
-  }
+@media (max-width: 900px) {
+	.admin-panel-container {
+		flex-direction: column;
+	}
 
-  .admin-sidebar {
-    width: 90%;
-    flex-direction: column; /* ustawiamy kolumnę, a nie rząd */
-    align-items: center; 
-    padding: 15px;
-    gap: 10px;
-  }
+	.admin-sidebar {
+		width: 90%;
+		flex-direction: column;
+		align-items: center;
+		padding: 15px;
+		gap: 10px;
+	}
 
-  .admin-sidebar button {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 5px;
-  }
+	.admin-sidebar button {
+		width: 100%;
+		text-align: center;
+		margin-bottom: 5px;
+	}
 
-  .admin-main {
-    padding: 15px;
-  }
+	.admin-main {
+		padding: 15px;
+	}
 }
-
-

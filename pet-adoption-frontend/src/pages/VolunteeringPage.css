@@ -1,103 +1,99 @@
 .volunteering-page {
-  background-color: #fce6d6;
-  min-height: 100vh;
-  padding-bottom: 2rem;
+	background-color: #fce6d6;
+	min-height: 100vh;
+	padding-bottom: 2rem;
 }
 
-/* Nagłówek */
 .volunteer-header {
-  width: 100%;
-  height: 400px;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  margin-bottom: 2rem;
-  z-index: 0;
+	width: 100%;
+	height: 400px;
+	background-size: cover;
+	background-position: center;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	margin-bottom: 2rem;
+	z-index: 0;
 }
 
 .volunteer-header::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.25);
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.25);
 }
 
 .volunteer-title {
-  position: relative;
-  color: #fff;
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
-  text-align: center;
+	position: relative;
+	color: #fff;
+	font-size: 2.5rem;
+	font-weight: 700;
+	text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+	text-align: center;
 }
 
-/* Wrapper nachodzący na nagłówek */
 .volunteer-wrapper-overlap {
-  max-width: 900px;
-  margin: auto;
-  margin-top: -120px;
-  position: relative;
-  z-index: 1;
-  background: #fff;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-  padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	max-width: 900px;
+	margin: auto;
+	margin-top: -120px;
+	position: relative;
+	z-index: 1;
+	background: #fff;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+	padding: 2rem;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .volunteer-intro {
-  font-size: 1rem;
-  color: #5a5a5a;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  text-align: justify;
+	font-size: 1rem;
+	color: #5a5a5a;
+	line-height: 1.6;
+	margin-bottom: 2rem;
+	text-align: justify;
 }
 
 .volunteer-info h3 {
-  color: #ae5224;
-  margin-top: 1.5rem;
+	color: #ae5224;
+	margin-top: 1.5rem;
 }
 
 .volunteer-info ul {
-  margin-left: 1.2rem;
-  margin-bottom: 1rem;
+	margin-left: 1.2rem;
+	margin-bottom: 1rem;
 }
 
 .volunteer-info a {
-  color: #e78c58;
-  text-decoration: underline;
+	color: #e78c58;
+	text-decoration: underline;
 }
 
 .volunteer-info a:hover {
-  color: #ae5224;
+	color: #ae5224;
 }
 
-/* Responsywność */
 @media (max-width: 768px) {
-  .volunteer-header {
-    height: 250px;
-  }
+	.volunteer-header {
+		height: 250px;
+	}
 
-  .volunteer-title {
-    font-size: 2rem;
-  }
+	.volunteer-title {
+		font-size: 2rem;
+	}
 
-  .volunteer-wrapper-overlap {
-    padding: 1.5rem;
-    margin-top: -80px;
-  }
+	.volunteer-wrapper-overlap {
+		padding: 1.5rem;
+		margin-top: -80px;
+	}
 }
 
 @media (max-width: 576px) {
-  .volunteer-header {
-    height: 200px;
-  }
+	.volunteer-header {
+		height: 200px;
+	}
 
-  .volunteer-title {
-    font-size: 1.6rem;
-  }
+	.volunteer-title {
+		font-size: 1.6rem;
+	}
 }
-

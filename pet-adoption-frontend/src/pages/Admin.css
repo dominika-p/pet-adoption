@@ -1,90 +1,88 @@
 .admin-page {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 30px 20px;
-  font-family: 'Poppins', sans-serif;
-  color: #4a3f35;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 30px 20px;
+	font-family: 'Poppins', sans-serif;
+	color: #4a3f35;
 }
 
 .admin-container {
-  width: 100%;
-  max-width: 400px;
-  padding: 25px;
-  background-color: rgba(252, 230, 214, 0.85); /* półprzezroczyste */
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-  text-align: center;
+	width: 100%;
+	max-width: 400px;
+	padding: 25px;
+	background-color: rgba(252, 230, 214, 0.85);
+	border-radius: 15px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+	text-align: center;
 }
 
 .admin-container h2 {
-  margin-bottom: 20px;
-  font-size: 1.6rem;
-  color: #ae5224;
-  font-weight: 700;
+	margin-bottom: 20px;
+	font-size: 1.6rem;
+	color: #ae5224;
+	font-weight: 700;
 }
 
 .admin-form input {
-  width: 100%;
-  box-sizing: border-box; /* uwzględnia padding i border w szerokości */
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid #d2bfa3;
-  background: #faf7f2;
-  font-size: 14px;
-  transition: 0.2s;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 12px 14px;
+	border-radius: 10px;
+	border: 1px solid #d2bfa3;
+	background: #faf7f2;
+	font-size: 14px;
+	transition: 0.2s;
 }
 
 .admin-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px; /* odstęp między inputami */
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
 }
 
 .admin-form input:hover {
-  border-color: #e78c58;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+	border-color: #e78c58;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 .admin-form button {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  background: #e78c58;
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s;
+	width: 100%;
+	padding: 12px;
+	border-radius: 10px;
+	border: none;
+	background: #e78c58;
+	color: #fff;
+	font-weight: 700;
+	cursor: pointer;
+	transition: 0.2s;
 }
 
 .admin-form button:hover {
-  background: #d66a3b;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+	background: #d66a3b;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .admin-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-top: 20px;
 }
 
 .admin-buttons button {
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  background: #e78c58;
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s;
+	padding: 12px;
+	border-radius: 10px;
+	border: none;
+	background: #e78c58;
+	color: #fff;
+	font-weight: 700;
+	cursor: pointer;
+	transition: 0.2s;
 }
 
 .admin-buttons button:hover {
-  background: #d66a3b;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+	background: #d66a3b;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
-
-

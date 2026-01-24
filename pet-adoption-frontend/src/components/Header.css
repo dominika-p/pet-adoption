@@ -7,26 +7,26 @@
 }
 
 .header-container {
-  display: flex;
-  align-items: center;
-  max-width: 1200px;
-  margin: auto;
+	display: flex;
+	align-items: center;
+	max-width: 1200px;
+	margin: auto;
 
-  position: relative;
+	position: relative;
 }
 
 .logo img {
 	max-height: 50px;
 	width: auto;
 	display: block;
-  flex: 0 0 auto;
+	flex: 0 0 auto;
 }
 
 .nav {
 	display: flex;
 	gap: 1rem;
-   margin-left: auto;   /* odsuwa od logo */
-  margin-right: auto;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .nav a {
@@ -35,7 +35,9 @@
 	color: #ae5224;
 	text-transform: uppercase;
 	font-weight: bold;
-	transition: color 0.2s ease-in-out, transform 0.2s ease;
+	transition:
+		color 0.2s ease-in-out,
+		transform 0.2s ease;
 }
 
 .nav a:hover {
@@ -43,7 +45,6 @@
 	transform: translateY(-2px);
 }
 
-/* Konto — prawa strona */
 .account-desktop {
 	position: absolute;
 	right: 1.5rem;
@@ -77,24 +78,21 @@
 	color: #e78c58;
 }
 
-/* MOBILE — konto w menu */
 .account-mobile {
 	display: none;
 	flex-direction: column;
-	align-items: center; /* wyśrodkowanie */
-	gap: 5px;           /* równy odstęp między linkami/przyciskami */
+	align-items: center;
+	gap: 5px;
 	margin-top: 10px;
 }
 
 .account-mobile a,
 .account-mobile button {
-	width: auto;        /* niech przyciski nie rozciągają się na 100% */
-	padding: 6px 12px;  /* mniejszy padding, równy dla wszystkich */
+	width: auto;
+	padding: 6px 12px;
 	text-align: center;
 }
 
-
-/* Hamburger */
 .hamburger {
 	display: none;
 	flex-direction: column;
@@ -115,7 +113,6 @@
 	transition: all 0.3s ease;
 }
 
-/* Animacja X */
 .hamburger.open div:nth-child(1) {
 	transform: rotate(45deg) translate(5px, 5px);
 }
@@ -128,7 +125,6 @@
 	transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* MOBILE menu */
 @media (max-width: 1200px) {
 	.nav {
 		position: absolute;
@@ -142,8 +138,7 @@
 		border-radius: 10px;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 		z-index: 1000;
-    text-align: center;
-    
+		text-align: center;
 	}
 
 	.nav.open {

@@ -1,260 +1,247 @@
 .dashboard-container {
-  width: 100%;
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 25px;
-  background-color: rgba(252, 230, 214, 0.85); /* półprzezroczyste */
-  border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-  font-family: 'Poppins', sans-serif;
-  color: #4a3f35;
+	width: 100%;
+	max-width: 900px;
+	margin: 40px auto;
+	padding: 25px;
+	background-color: rgba(252, 230, 214, 0.85);
+	border-radius: 15px;
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+	font-family: 'Poppins', sans-serif;
+	color: #4a3f35;
 }
 
-
 .dashboard-container h2 {
-  text-align: center;
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 25px;
+	text-align: center;
+	font-size: 26px;
+	font-weight: 700;
+	margin-bottom: 25px;
 }
 
 .calendar-box {
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid #d2bfa3;
-  margin-bottom: 25px;
+	background: #fff;
+	padding: 20px;
+	border-radius: 12px;
+	border: 1px solid #d2bfa3;
+	margin-bottom: 25px;
 }
 
 .pending-label {
-  color: orange;
-  font-weight: bold;
-  margin-left: 5px;
+	color: orange;
+	font-weight: bold;
+	margin-left: 5px;
 }
 
 .approved-label {
-  color: green;
-  font-weight: bold;
-  margin-left: 5px;
+	color: green;
+	font-weight: bold;
+	margin-left: 5px;
 }
 
 .cancelled-label {
-  color: red;
-  font-weight: bold;
-  margin-left: 5px;
+	color: red;
+	font-weight: bold;
+	margin-left: 5px;
 }
 
 .task-note {
-  margin-top: 5px;
-  font-style: italic;
-  color: #555;
+	margin-top: 5px;
+	font-style: italic;
+	color: #555;
 }
 
-
 .calendar-box .react-calendar {
-  width: 100%;
-  border: none;
+	width: 100%;
+	border: none;
 }
 
 .calendar-box .react-calendar__tile--active {
-  background-color: #e78c58;
-  color: #fff;
-  font-weight: 600;
-  border-radius: 8px;
+	background-color: #e78c58;
+	color: #fff;
+	font-weight: 600;
+	border-radius: 8px;
 }
 
 .calendar-box .react-calendar__tile--now {
-  background-color: #fce6d6;
-  border: 1px solid #e78c58;
-  border-radius: 8px;
+	background-color: #fce6d6;
+	border: 1px solid #e78c58;
+	border-radius: 8px;
 }
 
 .react-calendar .dot {
-  width: 6px;
-  height: 6px;
-  background-color: #e78c58;
-  border-radius: 50%;
-  margin: 2px auto 0;
+	width: 6px;
+	height: 6px;
+	background-color: #e78c58;
+	border-radius: 50%;
+	margin: 2px auto 0;
 }
 
 .task-box {
-  background: #fff;
-  border: 1px solid #d2bfa3;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 25px;
+	background: #fff;
+	border: 1px solid #d2bfa3;
+	border-radius: 12px;
+	padding: 20px;
+	margin-bottom: 25px;
 }
 
 .task-box .task-header {
-  font-size: 20px;
-  font-weight: 700;
-  color: #4a3f35;
-  text-align: center;
-  margin-bottom: 5px;
+	font-size: 20px;
+	font-weight: 700;
+	color: #4a3f35;
+	text-align: center;
+	margin-bottom: 5px;
 }
 
 .task-box .task-date {
-  font-size: 16px;
-  color: #ae5224;
-  margin-bottom: 15px;
-  text-align: center;
+	font-size: 16px;
+	color: #ae5224;
+	margin-bottom: 15px;
+	text-align: center;
 }
 
 .task-item {
-  background: #f9f4ee;
-  border-left: none;
-  border-radius: 12px;
-  padding: 12px 15px;
-  margin: 10px 0;
-  flex-direction: column;
-  width: 100%;
-  box-sizing: border-box;
+	background: #f9f4ee;
+	border-left: none;
+	border-radius: 12px;
+	padding: 12px 15px;
+	margin: 10px 0;
+	flex-direction: column;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .task-main-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	width: 100%;
 }
 
 .task-info {
-  font-size: 16px;
-  flex: 1;
-  text-align: left;
+	font-size: 16px;
+	flex: 1;
+	text-align: left;
 }
 
 .task-status {
-  font-size: 14px;
-  color: #ae5224;
-  font-weight: 500;
-  text-align: center;
-  white-space: nowrap;
+	font-size: 14px;
+	color: #ae5224;
+	font-weight: 500;
+	text-align: center;
+	white-space: nowrap;
 }
 
 .cancel-btn {
-  background: #d66a3b;
-  color: #fff;
-  font-weight: 600;
-  border: none;
-  border-radius: 10px;
-  padding: 6px 12px;
-  cursor: pointer;
-  transition: 0.2s;
-  flex-shrink: 0;
+	background: #d66a3b;
+	color: #fff;
+	font-weight: 600;
+	border: none;
+	border-radius: 10px;
+	padding: 6px 12px;
+	cursor: pointer;
+	transition: 0.2s;
+	flex-shrink: 0;
 }
 
 .cancel-btn:hover {
-  background: #e78c58;
+	background: #e78c58;
 }
 
 .task-note {
-  font-size: 14px;
-  color: #6a5230;
-  margin-top: 5px;
-  text-align: left;
+	font-size: 14px;
+	color: #6a5230;
+	margin-top: 5px;
+	text-align: left;
 }
 
 .add-task-box {
-  background: #fff;
-  border: 1px solid #d2bfa3;
-  border-radius: 12px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-items: center;
+	background: #fff;
+	border: 1px solid #d2bfa3;
+	border-radius: 12px;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	align-items: center;
 }
 
 .add-task-box .add-task-header {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  text-align: center;
+	font-size: 18px;
+	font-weight: 700;
+	margin-bottom: 10px;
+	text-align: center;
 }
 
 .add-task-row {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-  justify-content: center;
-  flex-wrap: wrap;
+	display: flex;
+	gap: 10px;
+	width: 100%;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 
 .add-task-row select,
-.add-task-row input[type="date"],
-.add-task-row input[type="time"],
+.add-task-row input[type='date'],
+.add-task-row input[type='time'],
 .add-task-row .add-btn {
-  flex: 1;
-  min-width: 140px;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid #d2bfa3;
-  background: #faf7f2;
-  font-size: 14px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-  transition: 0.2s;
+	flex: 1;
+	min-width: 140px;
+	padding: 12px 14px;
+	border-radius: 10px;
+	border: 1px solid #d2bfa3;
+	background: #faf7f2;
+	font-size: 14px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+	transition: 0.2s;
 }
 
 .add-task-row select:hover,
-.add-task-row input[type="date"]:hover,
-.add-task-row input[type="time"]:hover {
-  border-color: #e78c58;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+.add-task-row input[type='date']:hover,
+.add-task-row input[type='time']:hover {
+	border-color: #e78c58;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .add-task-row .add-btn {
-  background: #e78c58;
-  color: #fff;
-  font-weight: 700;
-  border: none;
-  cursor: pointer;
-  flex: unset;
-  min-width: 100px;
+	background: #e78c58;
+	color: #fff;
+	font-weight: 700;
+	border: none;
+	cursor: pointer;
+	flex: unset;
+	min-width: 100px;
 }
 
 .add-task-row .add-btn:hover {
-  background: #d66a3b;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+	background: #d66a3b;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .add-task-note {
-  width: 100%;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #d2bfa3;
-  background: #faf7f2;
-  font-size: 14px;
-  resize: vertical;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-  box-sizing: border-box;
+	width: 100%;
+	padding: 12px;
+	border-radius: 10px;
+	border: 1px solid #d2bfa3;
+	background: #faf7f2;
+	font-size: 14px;
+	resize: vertical;
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
-  .dashboard-container {
-    padding: 15px 20px;
-  }
+	.dashboard-container {
+		padding: 15px 20px;
+	}
 
-  .add-task-row {
-    flex-direction: column;
-  }
+	.add-task-row {
+		flex-direction: column;
+	}
 
-  .add-task-row select,
-  .add-task-row input[type="date"],
-  .add-task-row input[type="time"],
-  .add-task-row .add-btn {
-    flex: unset;
-  }
+	.add-task-row select,
+	.add-task-row input[type='date'],
+	.add-task-row input[type='time'],
+	.add-task-row .add-btn {
+		flex: unset;
+	}
 }
-
-
-
-
-
-
-
-
-
-
-

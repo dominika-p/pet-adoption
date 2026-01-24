@@ -1,224 +1,254 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
-import Calendar from 'react-calendar';
-import axios from 'axios';
-import 'react-calendar/dist/Calendar.css';
-import './VolunteeringDashboard.css';
-import { UserContext } from '../context/UserContext';
+import React, { useState, useEffect, useCallback, useContext } from 'react'
+import Calendar from 'react-calendar'
+import axios from 'axios'
+import 'react-calendar/dist/Calendar.css'
+import './VolunteeringDashboard.css'
+import { UserContext } from '../context/UserContext'
 
-const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+const dniTygodnia = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota']
 const miesiace = [
-  'Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'
-];
+	'Styczeń',
+	'Luty',
+	'Marzec',
+	'Kwiecień',
+	'Maj',
+	'Czerwiec',
+	'Lipiec',
+	'Sierpień',
+	'Wrzesień',
+	'Październik',
+	'Listopad',
+	'Grudzień',
+]
 
-const taskTypes = ['Spacer z psem', 'Sprzątanie boksów', 'Opieka nad zwierzętami'];
-const hours = Array.from({ length: 8 }, (_, i) => `${10 + i}:00`);
+const taskTypes = ['Spacer z psem', 'Sprzątanie boksów', 'Opieka nad zwierzętami']
+const hours = Array.from({ length: 8 }, (_, i) => `${10 + i}:00`)
 
 const VolunteeringDashboard = () => {
-  const today = new Date();
-  const todayStr = today.toISOString().split('T')[0];
+	const today = new Date()
+	const todayStr = today.toISOString().split('T')[0]
 
-  const [selectedDate, setSelectedDate] = useState(todayStr);
-  const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState({ type: '', date: todayStr, time: '10:00', note: '' });
-  const [profile, setProfile] = useState(null);
+	const [selectedDate, setSelectedDate] = useState(todayStr)
+	const [tasks, setTasks] = useState([])
+	const [newTask, setNewTask] = useState({ type: '', date: todayStr, time: '10:00', note: '' })
+	const [profile, setProfile] = useState(null)
 
-  const { user } = useContext(UserContext);
+	const { user } = useContext(UserContext)
 
-  // --- Pobieranie profilu wolontariusza (bez zadań) ---
-  useEffect(() => {
-  if (!user?.id) {
-    setProfile(null);
-    return;
-  }
+	useEffect(() => {
+		if (!user?.id) {
+			setProfile(null)
+			return
+		}
 
-  let isMounted = true;
+		let isMounted = true
 
-  const loadProfile = async () => {
-    try {
-      console.log("Ładuję profil dla user id:", user.id);
-      const res = await axios.get(
-        `http://localhost:5000/api/volunteers/${user.id}`
-      );
+		const loadProfile = async () => {
+			try {
+				console.log('Ładuję profil dla user id:', user.id)
+				const res = await axios.get(`http://localhost:5000/api/volunteers/${user.id}`)
 
-      if (isMounted) {
-        const { tasks, password, ...profileData } = res.data;
-        setProfile(profileData);
-      }
-    } catch (err) {
-      console.error("Błąd pobierania profilu:", err);
-    }
-  };
+				if (isMounted) {
+					const { tasks, password, ...profileData } = res.data
+					setProfile(profileData)
+				}
+			} catch (err) {
+				console.error('Błąd pobierania profilu:', err)
+			}
+		}
 
-  loadProfile();
+		loadProfile()
 
-  return () => {
-    isMounted = false;
-  };
-}, [user?.id]);
+		return () => {
+			isMounted = false
+		}
+	}, [user?.id])
 
+	const fetchTasks = useCallback(
+		async date => {
+			if (!user?.id || !date) return
 
-  // --- Pobieranie zadań ---
-  const fetchTasks = useCallback(
-  async (date) => {
-    if (!user?.id || !date) return;
+			try {
+				const res = await axios.get(`http://localhost:5000/api/tasks/by-volunteer/${user.id}?date=${date}`)
+				setTasks(res.data)
+			} catch (err) {
+				console.error('Błąd pobierania zadań:', err)
+			}
+		},
+		[user?.id],
+	)
 
-    try {
-      const res = await axios.get(
-        `http://localhost:5000/api/tasks/by-volunteer/${user.id}?date=${date}`
-      );
-      setTasks(res.data);
-    } catch (err) {
-      console.error("Błąd pobierania zadań:", err);
-    }
-  },
-  [user?.id]
-);
+	useEffect(() => {
+		if (user?.id && selectedDate) {
+			fetchTasks(selectedDate)
+		}
+	}, [user?.id, selectedDate, fetchTasks])
 
-useEffect(() => {
-  if (user?.id && selectedDate) {
-    fetchTasks(selectedDate);
-  }
-}, [user?.id, selectedDate, fetchTasks]);
+	const addTask = async () => {
+		if (!newTask.type || !newTask.date || !newTask.time) return
+		if (!user?.id) return alert('Nie jesteś zalogowany lub brak id użytkownika')
 
-  // --- Dodawanie zadania ---
-  const addTask = async () => {
-    if (!newTask.type || !newTask.date || !newTask.time) return;
-    if (!user?.id) return alert("Nie jesteś zalogowany lub brak id użytkownika");
+		const taskToSave = {
+			volunteerId: user.id,
+			type: newTask.type,
+			date: newTask.date,
+			time: newTask.time + ':00',
+			note: newTask.note,
+			status: 'PENDING',
+		}
 
-    const taskToSave = { 
-      volunteerId: user.id,
-      type: newTask.type,
-      date: newTask.date,
-      time: newTask.time + ":00",
-      note: newTask.note,
-      status: "PENDING"
-    };
+		try {
+			const res = await axios.post('http://localhost:5000/api/tasks', taskToSave)
+			setTasks(prev => [...prev, res.data])
+			setNewTask({ type: '', date: newTask.date, time: '10:00', note: '' })
+		} catch (err) {
+			console.error('Błąd dodawania zadania:', err)
+			alert('Nie udało się dodać zadania')
+		}
+	}
 
-    try {
-      const res = await axios.post("http://localhost:5000/api/tasks", taskToSave);
-      setTasks(prev => [...prev, res.data]);
-      setNewTask({ type: '', date: newTask.date, time: '10:00', note: '' });
-    } catch (err) {
-      console.error("Błąd dodawania zadania:", err);
-      alert("Nie udało się dodać zadania");
-    }
-  };
+	const cancelTask = async taskId => {
+		const reason = prompt('Podaj powód rezygnacji:')
+		if (!reason) return
+		try {
+			const res = await axios.put(`http://localhost:5000/api/tasks/cancel/${taskId}`, { reason })
+			setTasks(prev => prev.map(t => (t.id === taskId ? res.data : t)))
+		} catch (err) {
+			console.error('Błąd anulowania zadania:', err)
+			alert('Nie udało się anulować zadania')
+		}
+	}
 
-  // --- Anulowanie zadania ---
-  const cancelTask = async (taskId) => {
-    const reason = prompt('Podaj powód rezygnacji:');
-    if (!reason) return;
-    try {
-      const res = await axios.put(`http://localhost:5000/api/tasks/cancel/${taskId}`, { reason });
-      setTasks(prev => prev.map(t => t.id === taskId ? res.data : t));
-    } catch (err) {
-      console.error("Błąd anulowania zadania:", err);
-      alert("Nie udało się anulować zadania");
-    }
-  };
+	const tasksForDay = tasks.filter(t => {
+		const taskDate = t.date.split('T')[0]
+		return ['PENDING', 'APPROVED', 'CANCELLED'].includes(t.status) && taskDate === selectedDate
+	})
 
-  // --- Filtrowanie zadań po wybranej dacie ---
-  const tasksForDay = tasks.filter(t => {
-    const taskDate = t.date.split('T')[0];
-    return (['PENDING', 'APPROVED', 'CANCELLED'].includes(t.status) && taskDate === selectedDate);
-  });
+	const formatDate = dateStr => {
+		const [year, month, day] = dateStr.split('-').map(Number)
+		const dateObj = new Date(year, month - 1, day)
+		return `${dniTygodnia[dateObj.getDay()]}, ${day} ${miesiace[month - 1]} ${year}`
+	}
 
-  const formatDate = dateStr => {
-    const [year, month, day] = dateStr.split('-').map(Number);
-    const dateObj = new Date(year, month - 1, day);
-    return `${dniTygodnia[dateObj.getDay()]}, ${day} ${miesiace[month - 1]} ${year}`;
-  };
+	const tileContent = ({ date, view }) => {
+		if (view !== 'month') return null
+		const dStr = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`
+		const hasTask = tasks.some(t => t.date.startsWith(dStr))
+		return hasTask ? <div className='dot'></div> : null
+	}
 
-  const tileContent = ({ date, view }) => {
-    if (view !== 'month') return null;
-    const dStr = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,'0')}-${date.getDate().toString().padStart(2,'0')}`;
-    const hasTask = tasks.some(t => t.date.startsWith(dStr));
-    return hasTask ? <div className='dot'></div> : null;
-  };
+	return (
+		<div
+			className='dashboard-page'
+			style={{
+				minHeight: '100vh',
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'flex-start',
+				padding: '30px 20px',
+				fontFamily: "'Poppins', sans-serif",
+				color: '#4a3f35',
+				background: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('/img/paneltlo2.jpg') center/cover no-repeat`,
+				backgroundSize: 'cover',
+				backgroundPosition: 'center',
+				backgroundRepeat: 'no-repeat',
+			}}>
+			<div className='dashboard-container'>
+				<h2>Panel wolontariusza</h2>
 
-  return (
-    <div className="dashboard-page" style={{
-      minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'flex-start',
-      padding: '30px 20px', fontFamily: "'Poppins', sans-serif", color: '#4a3f35',
-      background: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('/img/paneltlo2.jpg') center/cover no-repeat`,
-      backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat',
-    }}>
-      <div className="dashboard-container">
-        <h2>Panel wolontariusza</h2>
+				{profile && (
+					<div className='profile-info'>
+						<p>
+							<strong>Imię:</strong> {profile.name}
+						</p>
+						<p>
+							<strong>Email:</strong> {profile.email}
+						</p>
+					</div>
+				)}
 
-        {profile && (
-          <div className="profile-info">
-            <p><strong>Imię:</strong> {profile.name}</p>
-            <p><strong>Email:</strong> {profile.email}</p>
-          </div>
-        )}
+				<div className='calendar-box'>
+					<Calendar
+						onChange={date => {
+							const d = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`
+							setSelectedDate(d)
+							setNewTask(prev => ({ ...prev, date: d }))
+						}}
+						value={new Date(selectedDate)}
+						locale='pl-PL'
+						tileContent={tileContent}
+					/>
+				</div>
 
-        <div className='calendar-box'>
-          <Calendar
-            onChange={date => {
-              const d = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,'0')}-${date.getDate().toString().padStart(2,'0')}`;
-              setSelectedDate(d);
-              setNewTask(prev => ({ ...prev, date: d }));
-            }}
-            value={new Date(selectedDate)}
-            locale='pl-PL'
-            tileContent={tileContent}
-          />
-        </div>
+				<div className='task-box'>
+					<div className='task-header'>Lista zadań</div>
+					<div className='task-date'>{formatDate(selectedDate)}</div>
 
-        <div className='task-box'>
-  <div className='task-header'>Lista zadań</div>
-  <div className='task-date'>{formatDate(selectedDate)}</div>
+					<div className='task-list'>
+						{tasksForDay.length === 0 && <p className='no-tasks'>Brak zadań na ten dzień</p>}
 
-  <div className="task-list">
-    {tasksForDay.length === 0 && (
-      <p className="no-tasks">Brak zadań na ten dzień</p>
-    )}
+						{tasksForDay.map(task => (
+							<div key={task.id} className={`task-item ${task.status.toLowerCase()}`}>
+								<div className='task-main'>
+									<span className='task-time'>{task.time.slice(0, 5)}</span>{' '}
+									<span className='task-type'>{task.type}</span>
+								</div>
 
-    {tasksForDay.map(task => (
-      <div key={task.id} className={`task-item ${task.status.toLowerCase()}`}>
-        <div className="task-main">
-          <span className="task-time">{task.time.slice(0,5)}</span> {' '}
-          <span className="task-type">{task.type}</span>
-        </div>
+								{task.note && <div className='task-note'>{task.note}</div>}
 
-        {task.note && (
-          <div className="task-note">{task.note}</div>
-        )}
+								<div className='task-status'>
+									{task.status === 'PENDING' && '⏳ Oczekujące'}
+									{task.status === 'APPROVED' && '✅ Zatwierdzone'}
+									{task.status === 'CANCELLED' && '❌ Odrzucone'}
+								</div>
 
-        <div className="task-status">
-          {task.status === 'PENDING' && '⏳ Oczekujące'}
-          {task.status === 'APPROVED' && '✅ Zatwierdzone'}
-          {task.status === 'CANCELLED' && '❌ Odrzucone'}
-        </div>
+								{task.status === 'PENDING' && (
+									<button className='cancel-btn' onClick={() => cancelTask(task.id)}>
+										Anuluj
+									</button>
+								)}
+							</div>
+						))}
+					</div>
+				</div>
 
-        {task.status === 'PENDING' && (
-          <button className="cancel-btn" onClick={() => cancelTask(task.id)}>Anuluj</button>
-        )}
-      </div>
-    ))}
-  </div>
-</div>
+				<div className='add-task-box'>
+					<div className='add-task-header'>Dodaj aktywność</div>
+					<div className='add-task-row'>
+						<select value={newTask.type} onChange={e => setNewTask(prev => ({ ...prev, type: e.target.value }))}>
+							<option value=''>-- wybierz aktywność --</option>
+							{taskTypes.map(t => (
+								<option key={t} value={t}>
+									{t}
+								</option>
+							))}
+						</select>
+						<input
+							type='date'
+							value={newTask.date}
+							onChange={e => setNewTask(prev => ({ ...prev, date: e.target.value }))}
+						/>
+						<select value={newTask.time} onChange={e => setNewTask(prev => ({ ...prev, time: e.target.value }))}>
+							{hours.map(h => (
+								<option key={h} value={h}>
+									{h}
+								</option>
+							))}
+						</select>
+						<button className='add-btn' onClick={addTask}>
+							Dodaj
+						</button>
+					</div>
+					<textarea
+						className='add-task-note'
+						placeholder='Dodaj notatkę...'
+						value={newTask.note}
+						onChange={e => setNewTask(prev => ({ ...prev, note: e.target.value }))}
+					/>
+				</div>
+			</div>
+		</div>
+	)
+}
 
-
-        <div className='add-task-box'>
-          <div className='add-task-header'>Dodaj aktywność</div>
-          <div className='add-task-row'>
-            <select value={newTask.type} onChange={e => setNewTask(prev => ({ ...prev, type: e.target.value }))}>
-              <option value=''>-- wybierz aktywność --</option>
-              {taskTypes.map(t => <option key={t} value={t}>{t}</option>)}
-            </select>
-            <input type='date' value={newTask.date} onChange={e => setNewTask(prev => ({ ...prev, date: e.target.value }))} />
-            <select value={newTask.time} onChange={e => setNewTask(prev => ({ ...prev, time: e.target.value }))}>
-              {hours.map(h => <option key={h} value={h}>{h}</option>)}
-            </select>
-            <button className='add-btn' onClick={addTask}>Dodaj</button>
-          </div>
-          <textarea className='add-task-note' placeholder='Dodaj notatkę...' value={newTask.note} onChange={e => setNewTask(prev => ({ ...prev, note: e.target.value }))} />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default VolunteeringDashboard;
+export default VolunteeringDashboard

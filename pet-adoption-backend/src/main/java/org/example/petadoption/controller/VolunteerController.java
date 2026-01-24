@@ -42,7 +42,6 @@ public class VolunteerController {
         return service.registerVolunteer(volunteer);
     }
 
-    // --- PROFIL WOLONTARIUSZA ---
     @GetMapping("/{id}")
     public ResponseEntity<Volunteer> getVolunteerProfile(@PathVariable Long id) {
         return volunteerRepository.findById(id)

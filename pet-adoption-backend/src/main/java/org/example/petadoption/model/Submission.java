@@ -24,7 +24,7 @@ public class Submission {
     @Column(length = 1000)
     private String message;
 
-    // Konstruktor domyślny
+
     public Submission() {}
 
 }

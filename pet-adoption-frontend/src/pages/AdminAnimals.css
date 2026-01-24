@@ -1,357 +1,352 @@
-/* Formularz dodawania zwierzaka */
 .animal-form {
-  margin: 0 auto 25px auto;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  background: rgba(250, 247, 242, 0.95);
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	margin: 0 auto 25px auto;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	background: rgba(250, 247, 242, 0.95);
+	padding: 15px;
+	border-radius: 12px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .animal-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Automatyczne kolumny */
-  gap: 20px;
-  margin-top: 20px;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	gap: 20px;
+	margin-top: 20px;
 }
 
 .animal-card {
-  background: #fce6d6;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.30);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+	background: #fce6d6;
+	border-radius: 10px;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
 }
 
 .card-img-container img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
+	width: 100%;
+	height: 150px;
+	object-fit: cover;
 }
 
-.card-content { padding: 15px; }
+.card-content {
+	padding: 15px;
+}
 
 .card-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
+	display: flex;
+	gap: 10px;
+	margin-top: 10px;
 }
 
-/* Modal / Okienko */
 .modal-overlay {
-  position: fixed;
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 100%;
-  background: rgba(74, 63, 53, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-  backdrop-filter: blur(5px); 
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(74, 63, 53, 0.8);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 2000;
+	backdrop-filter: blur(5px);
 }
-
 
 .cancel-btn:hover {
-  background-color: #7f8c8d !important;
+	background-color: #7f8c8d !important;
 }
 
-
 @media (max-width: 600px) {
-  .modal-edit-grid {
-    grid-template-columns: 1fr;
-  }
-  .edit-group.full-width {
-    grid-column: span 1;
-  }
+	.modal-edit-grid {
+		grid-template-columns: 1fr;
+	}
+	.edit-group.full-width {
+		grid-column: span 1;
+	}
 }
 
 .animal-form .form-row {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
+	display: flex;
+	gap: 15px;
+	flex-wrap: wrap;
 }
 
 .animal-form .inline-label {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
 }
 
 .animal-form label {
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #4a3f35;
-  font-size: 13px;
+	font-weight: 600;
+	margin-bottom: 5px;
+	color: #4a3f35;
+	font-size: 13px;
 }
 
 .animal-form input,
 .animal-form select,
 .animal-form textarea {
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #d2bfa3;
-  font-size: 14px;
-  width: 100%;
-  box-sizing: border-box;
+	padding: 10px;
+	border-radius: 10px;
+	border: 1px solid #d2bfa3;
+	font-size: 14px;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .animal-form textarea {
-  resize: vertical;
-  min-height: 80px;
-  max-height: 200px;
+	resize: vertical;
+	min-height: 80px;
+	max-height: 200px;
 }
 
-/* Wiek obok siebie */
 .age-inputs {
-  display: flex;
-  gap: 5px;
+	display: flex;
+	gap: 5px;
 }
 
-/* Przyciski formularza */
 .animal-form button {
-  background-color: #e78c58;
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-  border: none;
-  transition: 0.2s;
-  padding: 10px;
-  border-radius: 8px;
+	background-color: #e78c58;
+	color: #fff;
+	font-weight: 700;
+	cursor: pointer;
+	border: none;
+	transition: 0.2s;
+	padding: 10px;
+	border-radius: 8px;
 }
 
 .animal-form button:hover {
-  background-color: #d66a3b;
+	background-color: #d66a3b;
 }
 
-/* Lista zwierząt */
 .animal-list {
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: flex-start;
+	flex-wrap: wrap;
+	gap: 20px;
+	justify-content: flex-start;
 }
 
 .animal-item {
-  width: 260px;
-  background: #faf7f2;
-  border-radius: 12px;
-  padding: 10px;
-  text-align: left;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+	width: 260px;
+	background: #faf7f2;
+	border-radius: 12px;
+	padding: 10px;
+	text-align: left;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .animal-item img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 10px;
+	width: 100%;
+	height: 150px;
+	object-fit: cover;
+	border-radius: 10px;
+	margin-bottom: 10px;
 }
 
 .animal-item h4 {
-  margin: 5px 0;
-  font-size: 14px;
+	margin: 5px 0;
+	font-size: 14px;
 }
 
 .animal-item p {
-  font-size: 13px;
-  margin: 3px 0;
+	font-size: 13px;
+	margin: 3px 0;
 }
 
-/* Przycisk usuń po prawej */
 .animal-buttons {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 10px;
 }
 
 .animal-buttons button {
-  padding: 6px 10px;
-  border: none;
-  border-radius: 8px;
-  background-color: #e78c58;
-  color: #fff;
-  cursor: pointer;
-  font-size: 12px;
-  transition: 0.2s;
+	padding: 6px 10px;
+	border: none;
+	border-radius: 8px;
+	background-color: #e78c58;
+	color: #fff;
+	cursor: pointer;
+	font-size: 12px;
+	transition: 0.2s;
 }
 
 .animal-buttons button:hover {
-  background-color: #d66a3b;
+	background-color: #d66a3b;
 }
 
-/* Poprawia wygląd nagłówków w kartach */
 .animal-card h4 {
-    margin: 0 0 10px 0;
-    color: #4a3f35;
-    font-size: 18px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 5px;
+	margin: 0 0 10px 0;
+	color: #4a3f35;
+	font-size: 18px;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 5px;
 }
 
-/* Styl dla braku zdjęcia */
 .no-image {
-    width: 100%;
-    height: 150px;
-    background: #eee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #888;
+	width: 100%;
+	height: 150px;
+	background: #eee;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #888;
 }
-
-/* --- REWOLUCJA W MODALU EDYCJI --- */
 
 .edit-modal-overlay {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    background: rgba(0, 0, 0, 0.75) !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    z-index: 9999 !important;
+	position: fixed !important;
+	top: 0 !important;
+	left: 0 !important;
+	width: 100vw !important;
+	height: 100vh !important;
+	background: rgba(0, 0, 0, 0.75) !important;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
+	z-index: 9999 !important;
 }
 
 .edit-modal-window {
-    background: white !important;
-    padding: 30px !important;
-    border-radius: 15px !important;
-    width: 850px !important; /* Szerszy by zmieścić kolumny */
-    max-width: 95% !important;
-    display: flex !important; /* Główne równe kolumny modalu */
-    flex-direction: row !important;
-    gap: 20px !important;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5) !important;
-    text-align: left !important;
+	background: white !important;
+	padding: 30px !important;
+	border-radius: 15px !important;
+	width: 850px !important;
+	max-width: 95% !important;
+	display: flex !important;
+	flex-direction: row !important;
+	gap: 20px !important;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+	text-align: left !important;
 }
 
-/* Lewa sekcja z tytułem */
 .edit-modal-sidebar {
-    flex: 0 0 150px !important;
-    border-right: 2px solid #faf7f2 !important;
-    padding-right: 20px !important;
+	flex: 0 0 150px !important;
+	border-right: 2px solid #faf7f2 !important;
+	padding-right: 20px !important;
 }
 
 .edit-modal-sidebar h3 {
-    margin: 0 !important;
-    color: #4a3f35 !important;
-    font-size: 20px !important;
+	margin: 0 !important;
+	color: #4a3f35 !important;
+	font-size: 20px !important;
 }
 
-/* Środkowa sekcja z polami */
 .edit-modal-body {
-    flex: 1 !important;
+	flex: 1 !important;
 }
 
 .edit-modal-grid {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important; /* Dwie równe kolumny */
-    gap: 15px !important;
+	display: grid !important;
+	grid-template-columns: 1fr 1fr !important;
+	gap: 15px !important;
 }
 
 .edit-modal-field {
-    display: flex !important;
-    flex-direction: column !important; /* Etykieta nad polem */
-    align-items: flex-start !important;
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: flex-start !important;
 }
 
 .edit-modal-field label {
-    font-weight: bold !important;
-    font-size: 13px !important;
-    margin-bottom: 5px !important;
-    color: #4a3f35 !important;
+	font-weight: bold !important;
+	font-size: 13px !important;
+	margin-bottom: 5px !important;
+	color: #4a3f35 !important;
 }
 
-.edit-modal-field input, 
-.edit-modal-field select, 
+.edit-modal-field input,
+.edit-modal-field select,
 .edit-modal-field textarea {
-    width: 100% !important;
-    padding: 10px !important;
-    border: 1px solid #d2bfa3 !important;
-    border-radius: 8px !important;
-    background: #faf7f2 !important;
-    box-sizing: border-box !important;
-    font-size: 14px !important;
-    margin: 0 !important;
+	width: 100% !important;
+	padding: 10px !important;
+	border: 1px solid #d2bfa3 !important;
+	border-radius: 8px !important;
+	background: #faf7f2 !important;
+	box-sizing: border-box !important;
+	font-size: 14px !important;
+	margin: 0 !important;
 }
 
 .edit-full-row {
-    grid-column: span 2 !important;
+	grid-column: span 2 !important;
 }
 
 .edit-full-row textarea {
-    min-height: 100px !important;
+	min-height: 100px !important;
 }
 
-/* Prawa sekcja z przyciskami (Pionowymi) */
 .edit-modal-actions-sidebar {
-    flex: 0 0 100px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    gap: 15px !important;
-    border-left: 2px solid #faf7f2 !important;
-    padding-left: 20px !important;
+	flex: 0 0 100px !important;
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: center !important;
+	gap: 15px !important;
+	border-left: 2px solid #faf7f2 !important;
+	padding-left: 20px !important;
 }
 
 .edit-save-btn {
-    background: #2ecc71 !important;
-    color: white !important;
-    height: 100px !important;
-    border: none !important;
-    border-radius: 12px !important;
-    font-weight: bold !important;
-    cursor: pointer !important;
-    transition: 0.2s !important;
+	background: #2ecc71 !important;
+	color: white !important;
+	height: 100px !important;
+	border: none !important;
+	border-radius: 12px !important;
+	font-weight: bold !important;
+	cursor: pointer !important;
+	transition: 0.2s !important;
 }
 
 .edit-cancel-btn {
-    background: #95a5a6 !important;
-    color: white !important;
-    height: 100px !important;
-    border: none !important;
-    border-radius: 12px !important;
-    font-weight: bold !important;
-    cursor: pointer !important;
+	background: #95a5a6 !important;
+	color: white !important;
+	height: 100px !important;
+	border: none !important;
+	border-radius: 12px !important;
+	font-weight: bold !important;
+	cursor: pointer !important;
 }
 
-.edit-save-btn:hover { background: #27ae60 !important; transform: scale(1.05); }
+.edit-save-btn:hover {
+	background: #27ae60 !important;
+	transform: scale(1.05);
+}
 
-/* RWD */
 @media (max-width: 800px) {
-    .edit-modal-window { flex-direction: column !important; }
-    .edit-modal-sidebar, .edit-modal-actions-sidebar { 
-        border: none !important; 
-        padding: 0 !important; 
-        flex: none !important;
-    }
-    .edit-modal-actions-sidebar { flex-direction: row !important; }
-    .edit-save-btn, .edit-cancel-btn { height: 50px !important; flex: 1; }
+	.edit-modal-window {
+		flex-direction: column !important;
+	}
+	.edit-modal-sidebar,
+	.edit-modal-actions-sidebar {
+		border: none !important;
+		padding: 0 !important;
+		flex: none !important;
+	}
+	.edit-modal-actions-sidebar {
+		flex-direction: row !important;
+	}
+	.edit-save-btn,
+	.edit-cancel-btn {
+		height: 50px !important;
+		flex: 1;
+	}
 }
 
-/* Responsive */
-@media(max-width: 900px) {
-  .animal-form .form-row {
-    flex-direction: column;
-  }
+@media (max-width: 900px) {
+	.animal-form .form-row {
+		flex-direction: column;
+	}
 
-  .animal-list {
-    justify-content: center;
-  }
+	.animal-list {
+		justify-content: center;
+	}
 
-  .animal-item {
-    width: 100%;
-  }
+	.animal-item {
+		width: 100%;
+	}
 }
-
-

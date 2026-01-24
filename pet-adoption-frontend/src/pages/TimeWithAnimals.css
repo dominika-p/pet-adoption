@@ -1,151 +1,142 @@
 .time-container {
-  position: relative;
-  min-height: 100vh;
-  padding: 40px 8%;
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  color: #5a5a5a;
+	position: relative;
+	min-height: 100vh;
+	padding: 40px 8%;
+	font-family: 'Poppins', sans-serif;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	color: #5a5a5a;
 }
 
-/* Przyciemnienie */
 .time-bg {
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: -1;
+	position: absolute;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	z-index: -1;
 }
 
-/* Nagłówek */
 .time-header {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #fff;
+	text-align: center;
+	margin-bottom: 30px;
+	color: #fff;
 }
 
 .time-header h1 {
-  font-size: 2.1rem;
-  margin-bottom: 8px;
+	font-size: 2.1rem;
+	margin-bottom: 8px;
 }
 
 .time-header p {
-  font-size: 1rem;
-  color: #eee;
+	font-size: 1rem;
+	color: #eee;
 }
 
-/* Zawartość */
 .time-content {
-  display: flex;
-  justify-content: space-between;
-  gap: 30px;
-  flex-wrap: nowrap;
+	display: flex;
+	justify-content: space-between;
+	gap: 30px;
+	flex-wrap: nowrap;
 }
 
-/* Boxy */
 .time-info,
 .time-form {
-  flex: 1 1 45%;
-  background: rgba(255, 255, 255, 0.92);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	flex: 1 1 45%;
+	background: rgba(255, 255, 255, 0.92);
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .time-info h2,
 .time-form h2 {
-  color: #ae5224;
-  margin-bottom: 8px;
-  font-size: 1.2rem;
+	color: #ae5224;
+	margin-bottom: 8px;
+	font-size: 1.2rem;
 }
 
 .time-info ul {
-  margin: 8px 0 12px 18px;
-  line-height: 1.5;
-  font-size: 0.95rem;
+	margin: 8px 0 12px 18px;
+	line-height: 1.5;
+	font-size: 0.95rem;
 }
 
-/* Formularz */
 .time-form form {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .time-form label {
-  margin-top: 8px;
-  margin-bottom: 4px;
-  font-weight: 600;
-  font-size: 0.9rem;
+	margin-top: 8px;
+	margin-bottom: 4px;
+	font-weight: 600;
+	font-size: 0.9rem;
 }
 
 .time-form select,
 .time-form input,
 .time-form textarea {
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-family: inherit;
-  font-size: 0.9rem;
+	padding: 8px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	font-family: inherit;
+	font-size: 0.9rem;
 }
 
 .time-form textarea {
-  resize: vertical;
-  min-height: 80px;
+	resize: vertical;
+	min-height: 80px;
 }
 
 .time-form button {
-  margin-top: 15px;
-  background-color: #ae5224;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  transition: 0.3s ease;
+	margin-top: 15px;
+	background-color: #ae5224;
+	color: #fff;
+	border: none;
+	padding: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 0.95rem;
+	transition: 0.3s ease;
 }
 
 .time-form button:hover {
-  background-color: #e78c58;
+	background-color: #e78c58;
 }
 
-/* Komunikat sukcesu */
 .form-success {
-  background-color: #e8f6ec;
-  border-left: 4px solid #3d593b;
-  padding: 16px;
-  border-radius: 6px;
-  text-align: center;
-  font-weight: 600;
-  color: #2d593b;
-  font-size: 0.95rem;
+	background-color: #e8f6ec;
+	border-left: 4px solid #3d593b;
+	padding: 16px;
+	border-radius: 6px;
+	text-align: center;
+	font-weight: 600;
+	color: #2d593b;
+	font-size: 0.95rem;
 }
 
-/* Responsywność */
 @media (max-width: 576px) {
-  .time-container {
-    padding: 25px 4%;
-  }
+	.time-container {
+		padding: 25px 4%;
+	}
 
-  .time-content {
-    flex-direction: column;
-    align-items: stretch; /* <- zmiana z center na stretch */
-    gap: 15px; /* możesz zostawić mały odstęp między boxami */
-  }
+	.time-content {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 15px;
+	}
 
-  .time-info,
-  .time-form {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
+	.time-info,
+	.time-form {
+		flex: 1 1 100%;
+		max-width: 100%;
+	}
 
-  .time-header h1 {
-    font-size: 1.8rem;
-  }
+	.time-header h1 {
+		font-size: 1.8rem;
+	}
 
-  .time-header p {
-    font-size: 0.95rem;
-  }
+	.time-header p {
+		font-size: 0.95rem;
+	}
 }
-
-

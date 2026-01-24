@@ -1,81 +1,80 @@
 .message-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 .message-item {
-  background: #faf7f2;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-  font-size: 13px;
+	background: #faf7f2;
+	border-radius: 10px;
+	padding: 10px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+	font-size: 13px;
 }
 
 .message-header {
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #4a3f35;
+	font-weight: 600;
+	margin-bottom: 5px;
+	color: #4a3f35;
 }
 
 .message-item p {
-  margin: 4px 0;
+	margin: 4px 0;
 }
 
 .message-item textarea {
-  width: 100%;
-  min-height: 60px;
-  resize: vertical;
-  margin-top: 5px;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #d2bfa3;
-  font-size: 13px;
-  box-sizing: border-box;
+	width: 100%;
+	min-height: 60px;
+	resize: vertical;
+	margin-top: 5px;
+	padding: 8px;
+	border-radius: 6px;
+	border: 1px solid #d2bfa3;
+	font-size: 13px;
+	box-sizing: border-box;
 }
 
 .message-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-top: 6px;
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+	margin-top: 6px;
 }
 
 .message-buttons button {
-  padding: 5px 8px;
-  border: none;
-  border-radius: 6px;
-  background-color: #e78c58;
-  color: #fff;
-  cursor: pointer;
-  font-size: 12px;
-  transition: 0.2s;
+	padding: 5px 8px;
+	border: none;
+	border-radius: 6px;
+	background-color: #e78c58;
+	color: #fff;
+	cursor: pointer;
+	font-size: 12px;
+	transition: 0.2s;
 }
 
 .message-buttons button:hover {
-  background-color: #d66a3b;
+	background-color: #d66a3b;
 }
 
 .answered-info {
-  margin-top: 6px;
-  background: rgba(200, 255, 200, 0.2);
-  padding: 6px 8px;
-  border-radius: 6px;
-  font-size: 13px;
+	margin-top: 6px;
+	background: rgba(200, 255, 200, 0.2);
+	padding: 6px 8px;
+	border-radius: 6px;
+	font-size: 13px;
 }
 
-/* Responsive */
-@media(max-width: 900px) {
-  .message-item {
-    font-size: 12px;
-  }
+@media (max-width: 900px) {
+	.message-item {
+		font-size: 12px;
+	}
 
-  .message-buttons {
-    flex-direction: column;
-    align-items: flex-end;
-  }
+	.message-buttons {
+		flex-direction: column;
+		align-items: flex-end;
+	}
 
-  .message-buttons button {
-    width: 100%;
-  }
+	.message-buttons button {
+		width: 100%;
+	}
 }

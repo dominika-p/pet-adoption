@@ -1,14 +1,13 @@
 body {
-  font-family: 'Roboto', sans-serif;
-  font-size: 18x; /* jeśli chcesz 20px */
-  margin: 0;
-  background-color: #fafafa;
-  color: #333;
+	font-family: 'Roboto', sans-serif;
+	font-size: 18x;
+	margin: 0;
+	background-color: #fafafa;
+	color: #333;
 }
 
-
 .container {
-  padding: 40px;
-  max-width: 900px;
-  margin: auto;
+	padding: 40px;
+	max-width: 900px;
+	margin: auto;
 }

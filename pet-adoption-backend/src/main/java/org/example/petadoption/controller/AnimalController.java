@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/animals")
@@ -46,7 +47,7 @@ public class AnimalController {
         }
 
         String filename = System.currentTimeMillis() + "_" +
-                StringUtils.cleanPath(file.getOriginalFilename());
+                StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
         Path uploadDir = Paths.get("uploads/images");
         Files.createDirectories(uploadDir);
